@@ -22,7 +22,7 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
                 .id(source.getId())
                 .totalPrice((double) source.getTotalPrice() / 100)
                 .createDate(source.getCreateDate())
-                .user(userDtoConverter.convert(source.getUser()))
+                .userId(source.getUser().getId())
                 .airTickets(airTickets)
                 .build();
     }

@@ -16,7 +16,7 @@ public class OrderDto {
 
     Timestamp createDate;
 
-    UserDto user;
+    Long userId;
 
     List<AirTicketDto> airTickets;
 

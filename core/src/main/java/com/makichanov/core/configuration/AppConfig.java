@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpMethod;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -22,6 +23,7 @@ import java.util.Set;
 @Configuration
 @ComponentScan(basePackages = "com.makichanov.core")
 @EnableJpaRepositories(basePackages = "com.makichanov.core.repository")
+@EnableJpaAuditing
 @EnableTransactionManagement
 @EnableWebSecurity
 public class AppConfig {

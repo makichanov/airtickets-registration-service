@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 
     @Id
@@ -24,7 +26,7 @@ public class Order {
     private Long id;
 
     @Column(name = "or_total_price_cent")
-    private Integer totalPrice;
+    private Long totalPrice;
 
     @Column(name = "or_create_date")
     @CreatedDate
@@ -32,6 +34,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "or_us_id", nullable = false)
+    // TODO: Place @CreatedBy annotation
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

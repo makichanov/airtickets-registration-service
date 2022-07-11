@@ -23,7 +23,7 @@ public class AirTicket {
     private String routeName;
 
     @Column(name = "at_price_cent")
-    private Integer price;
+    private Long price;
 
     @Column(name = "at_tickets_quantity")
     private Integer quantity;

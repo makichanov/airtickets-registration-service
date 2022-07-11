@@ -10,7 +10,7 @@ public interface OrderService {
 
     List<OrderDto> findAll();
 
-    OrderDto create(OrderDto userDto);
+    OrderDto create(List<Long> ticketsIds, Long userId);
 
     OrderDto delete(Long deleteId);
 
