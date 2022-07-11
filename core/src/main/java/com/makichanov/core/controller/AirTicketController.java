@@ -4,7 +4,6 @@ import com.makichanov.core.model.dto.AirTicketDto;
 import com.makichanov.core.model.dto.CreatingAirTicketDto;
 import com.makichanov.core.service.AirTicketService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tickets")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AirTicketController {
 
     private final AirTicketService airTicketService;
