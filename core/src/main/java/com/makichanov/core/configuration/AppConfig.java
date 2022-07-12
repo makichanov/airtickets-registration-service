@@ -8,11 +8,9 @@ import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.http.HttpMethod;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -25,7 +23,6 @@ import java.util.Set;
 @EnableJpaRepositories(basePackages = "com.makichanov.core.repository")
 @EnableJpaAuditing
 @EnableTransactionManagement
-@EnableWebSecurity
 public class AppConfig {
 
     @Bean
@@ -36,7 +33,7 @@ public class AppConfig {
     }
 
     @Bean
-    public ConversionServiceFactoryBean conversionService() {
+    public ConversionServiceFactoryBean conversionService(PasswordEncoder passwordEncoder) {
         ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
         Set<Converter<?, ?>> converters = new HashSet<>();
         converters.add(new AirTicketToAirTicketDtoConverter());
@@ -45,20 +42,15 @@ public class AppConfig {
         converters.add(new FlightAddressToFlightAddressDtoConverter());
         converters.add(new OrderToOrderDtoConverter());
         converters.add(new UserToUserDtoConverter());
+        converters.add(new AuthenticatingDtoToUserConverter(passwordEncoder));
         conversionServiceFactoryBean.setConverters(converters);
         conversionServiceFactoryBean.afterPropertiesSet();
         return conversionServiceFactoryBean;
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/tickets").permitAll()
-                .anyRequest().permitAll();
-        return httpSecurity.build();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 

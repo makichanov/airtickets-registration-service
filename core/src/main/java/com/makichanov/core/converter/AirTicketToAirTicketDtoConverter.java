@@ -1,12 +1,8 @@
 package com.makichanov.core.converter;
 
 import com.makichanov.core.model.dto.AirTicketDto;
-import com.makichanov.core.model.dto.OrderDto;
 import com.makichanov.core.model.entity.AirTicket;
 import org.springframework.core.convert.converter.Converter;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class AirTicketToAirTicketDtoConverter implements Converter<AirTicket, AirTicketDto> {
 

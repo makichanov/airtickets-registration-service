@@ -1,13 +1,18 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
+import com.makichanov.core.model.dto.AuthenticatingDto;
 import com.makichanov.core.model.dto.UserDto;
+import com.makichanov.core.model.entity.Role;
 import com.makichanov.core.model.entity.User;
+import com.makichanov.core.repository.RoleRepository;
 import com.makichanov.core.repository.UserRepository;
 import com.makichanov.core.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +20,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserServiceImpl implements UserService {
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService, UserDetailsService {
 
-    private final UserRepository repository;
+    private static final String DEFAULT_USER_ROLE = "ROLE_USER";
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final ConversionService conversionService;
 
     @Override
     public UserDto find(Long id) {
-        Optional<User> user = repository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         User item = user.orElseThrow(
                 () -> new EntityNotFoundException("User not found, requested id " + id));
         return conversionService.convert(item, UserDto.class);
@@ -31,26 +38,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAll() {
-        List<User> users = repository.findAll();
+        List<User> users = userRepository.findAll();
         return users.stream()
                 .map(u -> conversionService.convert(u, UserDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserDto create(UserDto userDto) {
-        User user = conversionService.convert(userDto, User.class);
-        User persisted = repository.save(user);
+    public UserDto create(AuthenticatingDto authenticatingDto) {
+        User user = conversionService.convert(authenticatingDto, User.class);
+        Role role = roleRepository.findByName(DEFAULT_USER_ROLE);
+        user.setRole(role);
+        User persisted = userRepository.save(user);
         return conversionService.convert(persisted, UserDto.class);
     }
 
     @Override
     public UserDto delete(Long deleteId) {
-        Optional<User> user = repository.findById(deleteId);
+        Optional<User> user = userRepository.findById(deleteId);
         User item = user.orElseThrow(
                 () -> new EntityNotFoundException("User not found, requested id " + deleteId));
-        repository.delete(item);
+        userRepository.delete(item);
         return conversionService.convert(item, UserDto.class);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
+    }
 }
