@@ -12,18 +12,18 @@ import java.util.List;
 public class UserDto {
 
     @Schema(description = "User id")
-    Long id;
+    private Long id;
 
     @Schema(description = "Username")
-    String username;
+    private String username;
 
     @Schema(description = "User password")
-    String password;
+    private String password;
 
     @Schema(description = "User balance in dollars")
-    Double balance;
+    private Double balance;
 
     @Schema(description = "User orders")
-    List<OrderDto> orders;
+    private List<OrderDto> orders;
 
 }

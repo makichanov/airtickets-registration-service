@@ -10,12 +10,12 @@ import lombok.Data;
 public class FlightAddressDto {
 
     @Schema(description = "Address id")
-    Long id;
+    private Long id;
 
     @Schema(description = "Airport name")
-    String airportName;
+    private String airportName;
 
     @Schema(description = "Airport local address")
-    String airportAddress;
+    private String airportAddress;
 
 }

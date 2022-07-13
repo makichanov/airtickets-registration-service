@@ -13,18 +13,18 @@ import java.util.List;
 public class OrderDto {
 
     @Schema(description = "Order id")
-    Long id;
+    private Long id;
 
     @Schema(description = "Order total price in dollars")
-    Double totalPrice;
+    private Double totalPrice;
 
     @Schema(description = "Order create date")
-    Timestamp createDate;
+    private Timestamp createDate;
 
     @Schema(description = "User that posted an order")
-    Long userId;
+    private Long userId;
 
     @Schema(description = "List of tickets in order")
-    List<AirTicketDto> airTickets;
+    private List<AirTicketDto> airTickets;
 
 }

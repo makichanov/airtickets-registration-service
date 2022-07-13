@@ -12,25 +12,25 @@ import java.sql.Timestamp;
 @Schema(description = "Dto for creating airticket entity")
 public class CreatingAirTicketDto {
 
-    @Schema(description = "Flight route name")
-    String routeName;
+    @Schema(description = "Plane number")
+    private String planeNumber;
 
     @Schema(description = "Ticket price in dollars")
-    Double price;
+    private Double price;
 
-    @Schema(description = "Total tickets on sale")
-    Integer quantity;
+    @Schema(description = "Ticket place in plane")
+    private String place;
 
     @Schema(description = "Flight departure time")
-    Timestamp departureTime;
+    private Timestamp departureTime;
 
     @Schema(description = "Flight arrival time")
-    Timestamp arrivalTime;
+    private Timestamp arrivalTime;
 
     @Schema(description = "Departure address")
-    FlightAddressDto addressFrom;
+    private FlightAddressDto addressFrom;
 
     @Schema(description = "Destination address")
-    FlightAddressDto addressTo;
+    private FlightAddressDto addressTo;
 
 }

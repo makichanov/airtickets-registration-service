@@ -16,9 +16,9 @@ public class CreatingAirTicketToAirTicketConverter implements Converter<Creating
         long departureSeconds = TimeUnit.MILLISECONDS.toSeconds(source.getDepartureTime().getTime());
         Long flightTimeSeconds = arrivalSeconds - departureSeconds;
         AirTicket airTicket = new AirTicket();
-        airTicket.setRouteName(source.getRouteName());
+        airTicket.setPlaneNumber(source.getPlaneNumber());
         airTicket.setPrice((long) (source.getPrice() * 100));
-        airTicket.setQuantity(source.getQuantity());
+        airTicket.setPlace(source.getPlace());
         airTicket.setDepartureTime(source.getDepartureTime());
         airTicket.setArrivalTime(source.getArrivalTime());
         airTicket.setAddressFrom(converter.convert(source.getAddressFrom()));

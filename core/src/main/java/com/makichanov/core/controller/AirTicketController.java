@@ -7,12 +7,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/tickets")
+@RequestMapping(value = "/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Airtickets controller", description = "CRUD airtickets operations")
 @RequiredArgsConstructor
 public class AirTicketController {

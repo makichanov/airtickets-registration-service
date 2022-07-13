@@ -7,7 +7,6 @@ import com.makichanov.core.model.entity.AirTicket;
 import com.makichanov.core.repository.AirTicketRepository;
 import com.makichanov.core.service.AirTicketService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
