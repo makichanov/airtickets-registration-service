@@ -1,3 +1,5 @@
+// TODO: 7/14/22 разбиение по пакетам, зачем entity пихать в model?
+//      мб лучше разделить dto на request и response и разбить по отдельным пакетам в model? а пакет entity положить просто в core
 package com.makichanov.core.model.entity;
 
 import lombok.*;
@@ -19,6 +21,7 @@ public class AirTicket {
     @Column(name = "at_id")
     private Long id;
 
+    //TODO: имя полета должно принадлежать самому полету, а не билету на него
     @Column(name = "at_route_name")
     private String routeName;
 
@@ -45,9 +48,11 @@ public class AirTicket {
     @JoinColumn(name = "at_fa_to", nullable = false)
     private FlightAddress addressTo;
 
+    // TODO: 7/14/22 Перепроектировать систему.
     @ManyToMany(mappedBy = "airTickets")
     private List<Order> orders;
 
+    //TODO: Что это за хуйня?
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

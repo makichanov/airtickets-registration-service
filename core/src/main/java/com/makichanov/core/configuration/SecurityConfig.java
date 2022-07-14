@@ -16,9 +16,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+// TODO: 7/14/22 РАЗДЕЛЕМ ЛОГИЧЕСКИЕ БЛОКИ ПУСТЫМИ СТРОКАМИ
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+// TODO: 7/14/22 Почему юзаешь deprecated класс? Должны быть альтернативы.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtAccessFilter jwtAccessFilter;
@@ -28,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .authorizeRequests()
+                //TODO: вынести строки в константы
                     .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                     .antMatchers(HttpMethod.GET, "/tickets", "/tickets/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/tickets").hasRole("ADMIN")
@@ -35,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     .authenticated()
                 .and()
+                // TODO: 7/14/22 Одна строчка - одна точка
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .addFilterBefore(jwtAccessFilter, UsernamePasswordAuthenticationFilter.class);

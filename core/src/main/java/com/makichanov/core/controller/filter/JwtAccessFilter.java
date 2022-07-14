@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+//TODO:Почему именно GenericFilter? мб лучше OncePerRequestFilter?
 public class JwtAccessFilter extends GenericFilter {
 
     private final TokenService tokenService;
@@ -36,6 +37,7 @@ public class JwtAccessFilter extends GenericFilter {
         chain.doFilter(request, response);
     }
 
+    // TODO: Вынести в провайдер.
     private String extractJwt(HttpServletRequest request) {
         String jwt =  request.getHeader("Authorization");
         return StringUtils.hasText(jwt)

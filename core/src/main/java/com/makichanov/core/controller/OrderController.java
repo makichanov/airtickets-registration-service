@@ -30,7 +30,7 @@ public class OrderController {
     public OrderDto create(@RequestBody List<Long> ticketsIds, @RequestParam Long userId) {
         return orderService.create(ticketsIds, userId);
     }
-
+    //TODO: Было бы хорошим тоном отличать dto, которые идут в запрос от dto, которые приходят в ответе. Рефактор на EntityNameRequest и EntityNameResponse
     @DeleteMapping
     public OrderDto delete(Long id) {
         return orderService.delete(id);

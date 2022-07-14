@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+//TODO: Почему маппинг в дто выполняется на уровне сервиса? Вынести в контроллер. Возвращаемое значение методов сервисного класса  --  не DTO.
+// возвращать сущности, либо списки сущностей
 @Service
 @RequiredArgsConstructor
 public class AirTicketServiceImpl implements AirTicketService {
@@ -22,6 +23,7 @@ public class AirTicketServiceImpl implements AirTicketService {
     private final AirTicketRepository repository;
     private final ConversionService conversionService;
 
+    //TODO: Для всех методов ниже: разделяем пустыми строками логические блоки.
     @Override
     public AirTicketDto find(Long id) {
         Optional<AirTicket> airTicket = repository.findById(id);
@@ -45,6 +47,8 @@ public class AirTicketServiceImpl implements AirTicketService {
         return conversionService.convert(persisted, AirTicketDto.class);
     }
 
+    //TODO: 1) избыточность в названии параметра метода, достаточно просто id
+    //      2) приводить к единообразию: если в find параметр id, то и в delete пусть будет тоже id
     @Override
     public AirTicketDto delete(Long deleteId) {
         Optional<AirTicket> airTicket = repository.findById(deleteId);

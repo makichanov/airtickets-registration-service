@@ -33,6 +33,7 @@ public class User implements UserDetails {
     @Column(name = "us_balance_cent")
     private Integer balance = 0;
 
+    // TODO: 7/14/22 Про двустороннюю связь вопрос был задан не единожды.
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
@@ -40,6 +41,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "us_role", nullable = false)
     private Role role;
 
+    // TODO: 7/14/22 Hardcode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

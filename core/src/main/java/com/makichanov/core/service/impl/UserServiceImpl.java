@@ -19,15 +19,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+//TODO: Предлагаю как-нибудь разделить этот сервис на 2: сервис, который реализует UserDetailsService
+//                                                      и сервис, независимый от Spring Security
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private static final String DEFAULT_USER_ROLE = "ROLE_USER";
+    // TODO: 7/14/22 Пустая строка!
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ConversionService conversionService;
 
+    /* TODO: рекомендую следующее:
+                    public User find(Long id)
+                    {
+                        return userRepository.findById(id)
+                                .orElseThrow(() -> new EntityNotFoundException("User not found, requested id " + id));
+                    }
+    */
     @Override
     public UserDto find(Long id) {
         Optional<User> user = userRepository.findById(id);

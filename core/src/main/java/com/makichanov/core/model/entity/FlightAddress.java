@@ -27,6 +27,7 @@ public class FlightAddress {
     @Column(name = "fa_airport_address")
     private String airportAddress;
 
+    //TODO: Необходима ли двусторонняя связь?
     @OneToMany(mappedBy = "addressFrom")
     private List<AirTicket> ticketsFrom;
 

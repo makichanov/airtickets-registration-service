@@ -17,11 +17,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
+    //TODO: Выкинуть DTO из сервисов, работа с DTO -- задача уровня представления
     @Override
     public String authenticate(AuthenticatingDto dto) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
+        //TODO: логические блоки разделяем пустыми строками
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        //TODO: Пустая строка
         return tokenService.generateToken(userDetails.getUsername(), userDetails.getPassword());
     }
 

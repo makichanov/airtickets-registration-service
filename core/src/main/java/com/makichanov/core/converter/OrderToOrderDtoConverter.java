@@ -8,10 +8,12 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//TODO: Смотри TODO в других конвертерах
 public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
 
     @Override
     public OrderDto convert(Order source) {
+        // TODO:   userDtoConverter - нужен?
         UserToUserDtoConverter userDtoConverter = new UserToUserDtoConverter();
         AirTicketToAirTicketDtoConverter airTicketDtoConverter = new AirTicketToAirTicketDtoConverter();
         List<AirTicketDto> airTickets = source.getAirTickets()

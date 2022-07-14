@@ -42,6 +42,9 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    //TODO: зачем второй аргумент?
+    //      текущего пользователя можно вытащить внутри метода
+    //      по хорошему рекомендую написать утилитный класс для операции с секьюрностью, текущими пользователями и т.д.
     @Override
     public OrderDto create(List<Long> ticketsIds, Long userId) {
         List<AirTicket> airTickets = new ArrayList<>();
@@ -59,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
         return conversionService.convert(persisted, OrderDto.class);
     }
 
+    // TODO: Снова конвертация в дто на уровне сервиса.
     @Override
     public OrderDto delete(Long deleteId) {
         Order order = findOrder(deleteId);

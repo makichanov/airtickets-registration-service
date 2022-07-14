@@ -16,6 +16,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserService userService;
 
+    //TODO: Было бы хорошим тоном отличать dto, которые идут в запрос от dto, которые приходят в ответе. Рефактор на EntityNameRequest и EntityNameResponse
     @PostMapping("/login")
     public String login(@RequestBody AuthenticatingDto authenticatingDto) {
         return authenticationService.authenticate(authenticatingDto);

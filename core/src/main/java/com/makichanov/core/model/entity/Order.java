@@ -24,25 +24,29 @@ public class Order {
     @SequenceGenerator(name = "orders_or_id_seq", sequenceName = "orders_or_id_seq", allocationSize = 1)
     @Column(name = "or_id")
     private Long id;
-
+//TODO: алиасы перед каждой колонкой -- избыточно
     @Column(name = "or_total_price_cent")
     private Long totalPrice;
 
+    //TODO: Почему Timestamp? Есть LocalDateTime
     @Column(name = "or_create_date")
     @CreatedDate
     private Timestamp createDate;
 
+    //TODO: Ты уверен, что тебе нужны все каскадные операции?
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "or_us_id", nullable = false)
     // TODO: Place @CreatedBy annotation
     private User user;
 
+    //TODO: Жду по-другому спроектированную систему
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "m2m_orders_tickets",
             joinColumns = @JoinColumn(name = "ot_or_id"),
             inverseJoinColumns = @JoinColumn(name = "ot_at_id"))
     private List<AirTicket> airTickets;
 
+    //TODO: Хардкод
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,3 +1,5 @@
+--todo: убрать алиасы в неймингах столбцов("ak_fa_to" -- трудно понять, что за столбец). Вряд ли на настоящем проекте команда оценит такие нейминги.
+--todo: кодстайл мигарций поправить
 create table flight_address
 (
     fa_id              bigserial primary key,
@@ -52,7 +54,7 @@ create table users
 );
 
 -------------------------------------------------------------------------------------------
-
+--todo: codestyle
 create table orders
 (
     or_id               bigserial
