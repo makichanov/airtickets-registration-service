@@ -18,11 +18,6 @@ public class CreatingAirTicketToAirTicketConverter implements Converter<Creating
         airTicket.setPlaneNumber(source.getPlaneNumber());
         airTicket.setPrice((long) (source.getPrice() * 100));
         airTicket.setPlace(source.getPlace());
-        airTicket.setDepartureTime(source.getDepartureTime());
-        airTicket.setArrivalTime(source.getArrivalTime());
-        airTicket.setAddressFrom(converter.convert(source.getAddressFrom()));
-        airTicket.setAddressTo(converter.convert(source.getAddressTo()));
-        airTicket.setFlightTimeSeconds(flightTimeSeconds);
         return airTicket;
     }
 

@@ -1,6 +1,7 @@
 package com.makichanov.core.service;
 
 import com.makichanov.core.model.dto.OrderDto;
+import com.makichanov.core.model.entity.FlightAddress;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface OrderService {
 
     List<OrderDto> findAll();
 
-    OrderDto create(List<Long> ticketsIds, Long userId);
+    OrderDto create(FlightAddress from, FlightAddress to, String username);
 
     OrderDto delete(Long deleteId);
 

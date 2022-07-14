@@ -5,36 +5,21 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
-@ComponentScan(basePackages = "com.makichanov.core")
-@EnableJpaRepositories(basePackages = "com.makichanov.core.repository")
 @EnableJpaAuditing
 @EnableTransactionManagement
 public class AppConfig {
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
-        return transactionManager;
-    }
-
     @Bean
     public ConversionServiceFactoryBean conversionService(PasswordEncoder passwordEncoder) {
         ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
@@ -46,6 +31,9 @@ public class AppConfig {
         converters.add(new OrderToOrderDtoConverter());
         converters.add(new UserToUserDtoConverter());
         converters.add(new AuthenticatingDtoToUserConverter(passwordEncoder));
+        converters.add(new CreatingFlightDetailsDtoToFlightDetailsConverter());
+        converters.add(new FlightDetailsToFlightDetailsDtoConverter());
+        converters.add(new CreatingFlightAddressDtoToFlightAddressConverter());
         conversionServiceFactoryBean.setConverters(converters);
         conversionServiceFactoryBean.afterPropertiesSet();
         return conversionServiceFactoryBean;
@@ -65,8 +53,5 @@ public class AppConfig {
                                 .email("vanya133719@gmail.com")
                                 .name("Ivan Riabov"))
                 );
-
     }
-
-
 }

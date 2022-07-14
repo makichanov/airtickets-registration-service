@@ -17,7 +17,6 @@ import java.util.List;
 @Tag(name = "Airtickets controller", description = "CRUD airtickets operations")
 @RequiredArgsConstructor
 public class AirTicketController {
-
     private final AirTicketService airTicketService;
 
     @GetMapping
@@ -51,5 +50,4 @@ public class AirTicketController {
     public AirTicketDto delete(@PathVariable Long id) {
         return airTicketService.delete(id);
     }
-
 }

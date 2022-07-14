@@ -17,7 +17,6 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAccessFilter extends GenericFilter {
-
     private final TokenService tokenService;
     private final UserDetailsService userDetailsService;
 
@@ -42,5 +41,4 @@ public class JwtAccessFilter extends GenericFilter {
                 ? jwt.replaceFirst("Bearer ", "")
                 : null;
     }
-
 }

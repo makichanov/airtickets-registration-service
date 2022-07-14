@@ -3,6 +3,7 @@ package com.makichanov.core.service.impl;
 import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.model.dto.OrderDto;
 import com.makichanov.core.model.entity.AirTicket;
+import com.makichanov.core.model.entity.FlightAddress;
 import com.makichanov.core.model.entity.Order;
 import com.makichanov.core.model.entity.User;
 import com.makichanov.core.repository.AirTicketRepository;
@@ -10,7 +11,6 @@ import com.makichanov.core.repository.OrderRepository;
 import com.makichanov.core.repository.UserRepository;
 import com.makichanov.core.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
@@ -42,15 +42,11 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public OrderDto create(List<Long> ticketsIds, Long userId) {
+    @Override //FIXME ne rabotaet
+    public OrderDto create(FlightAddress from, FlightAddress to, String username) {
         List<AirTicket> airTickets = new ArrayList<>();
-        for (Long ticketId : ticketsIds) {
-            AirTicket o = findAirTicket(ticketId);
-            airTickets.add(o);
-        }
         Long price = countTotalPrice(airTickets);
-        User user = findUser(userId);
+        User user = userRepository.findByUsername(username);
         Order order = new Order();
         order.setAirTickets(airTickets);
         order.setTotalPrice(price);
@@ -76,12 +72,6 @@ public class OrderServiceImpl implements OrderService {
         Optional<AirTicket> order = ticketRepository.findById(id);
         return order.orElseThrow(
                 () -> new EntityNotFoundException("Order not found, requested id " + id));
-    }
-
-    private User findUser(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        return user.orElseThrow(
-                () -> new EntityNotFoundException("User not found, requested id " + userId));
     }
 
     private Long countTotalPrice(List<AirTicket> airTickets) {

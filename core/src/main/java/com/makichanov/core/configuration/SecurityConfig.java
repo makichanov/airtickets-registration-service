@@ -20,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final JwtAccessFilter jwtAccessFilter;
 
     public void configure(HttpSecurity httpSecurity) throws Exception {
@@ -31,7 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                     .antMatchers(HttpMethod.GET, "/tickets", "/tickets/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/tickets").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.DELETE, "/tickets").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/tickets/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/flights", "/flights/**").hasAnyRole("USER", "ADMIN")
+                    .antMatchers(HttpMethod.POST, "/flights").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
                 .anyRequest()
                     .authenticated()
                 .and()
@@ -53,5 +55,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
 }

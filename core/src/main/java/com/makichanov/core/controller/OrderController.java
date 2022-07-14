@@ -1,9 +1,11 @@
 package com.makichanov.core.controller;
 
 import com.makichanov.core.model.dto.OrderDto;
+import com.makichanov.core.model.entity.FlightAddress;
 import com.makichanov.core.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +14,6 @@ import java.util.List;
 @RequestMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class OrderController {
-
     private final OrderService orderService;
 
     @GetMapping
@@ -25,16 +26,17 @@ public class OrderController {
         return orderService.find(id);
     }
 
-    // TODO: Passing userId is stub!!!
-    //  Use Spring Security ContextHolder to extract authenticated user principal instead
     @PostMapping
-    public OrderDto create(@RequestBody List<Long> ticketsIds, @RequestParam Long userId) {
-        return orderService.create(ticketsIds, userId);
+    public OrderDto create(@RequestBody FlightAddress from, FlightAddress to) {
+        String username = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal()
+                .toString();
+        return orderService.create(from, to , username);
     }
 
     @DeleteMapping
     public OrderDto delete(Long id) {
         return orderService.delete(id);
     }
-
 }

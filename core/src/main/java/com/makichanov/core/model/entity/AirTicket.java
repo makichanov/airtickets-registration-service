@@ -3,7 +3,6 @@ package com.makichanov.core.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -13,7 +12,7 @@ import java.util.List;
 public class AirTicket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "at_id")
     private Long id;
 
@@ -26,24 +25,10 @@ public class AirTicket {
     @Column(name = "at_ticket_place")
     private String place;
 
-    @Column(name = "at_flight_time_seconds")
-    private Long flightTimeSeconds;
-
-    @Column(name = "at_departure_time")
-    private Timestamp departureTime;
-
-    @Column(name = "at_arrival_time")
-    private Timestamp arrivalTime;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-            @JoinColumn(name = "at_fa_from", nullable = false)
+    @JoinColumn(name = "at_fl_id")
     @EqualsAndHashCode.Exclude
-    private FlightAddress addressFrom;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "at_fa_to", nullable = false)
-    @EqualsAndHashCode.Exclude
-    private FlightAddress addressTo;
+    private FlightDetails flightDetails;
 
     @ManyToMany(mappedBy = "airTickets")
     @EqualsAndHashCode.Exclude

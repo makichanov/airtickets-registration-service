@@ -15,11 +15,6 @@ public class AirTicketToAirTicketDtoConverter implements Converter<AirTicket, Ai
                 .planeNumber(source.getPlaneNumber())
                 .price((double) source.getPrice() / 100)
                 .place(source.getPlace())
-                .flightTimeSeconds(source.getFlightTimeSeconds())
-                .departureTime(source.getDepartureTime())
-                .arrivalTime(source.getArrivalTime())
-                .addressFrom(flightAddressDtoConverter.convert(source.getAddressFrom()))
-                .addressTo(flightAddressDtoConverter.convert(source.getAddressTo()))
                 .build();
     }
 

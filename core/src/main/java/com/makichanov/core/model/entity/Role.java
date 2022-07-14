@@ -12,8 +12,7 @@ import java.util.List;
 public class Role implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roles_r_id_seq")
-    @SequenceGenerator(name = "roles_r_id_seq", sequenceName = "roles_r_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ro_id")
     private Integer id;
 
@@ -28,5 +27,6 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return name;
     }
+
 
 }
