@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
-//TODO: Cмотри AirTicketDto
 @Data
 @Builder
 @Schema(description = "User dto")

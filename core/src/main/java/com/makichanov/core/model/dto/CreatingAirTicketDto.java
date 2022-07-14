@@ -6,7 +6,6 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
-//TODO: Cмотри AirTicketDto
 @Data
 @Builder
 @Schema(description = "Dto for creating airticket entity")

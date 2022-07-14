@@ -13,6 +13,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,10 +27,10 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private static final String DEFAULT_USER_ROLE = "ROLE_USER";
-    // TODO: 7/14/22 Пустая строка!
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ConversionService conversionService;
+    private final PasswordEncoder passwordEncoder;
 
     /* TODO: рекомендую следующее:
                     public User find(Long id)
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                         return userRepository.findById(id)
                                 .orElseThrow(() -> new EntityNotFoundException("User not found, requested id " + id));
                     }
+                    OK
     */
     @Override
     public UserDto find(Long id) {
@@ -59,6 +61,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = conversionService.convert(authenticatingDto, User.class);
         Role role = roleRepository.findByName(DEFAULT_USER_ROLE);
         user.setRole(role);
+        user.setPassword(
+                passwordEncoder.encode(
+                        authenticatingDto.getPassword()));
         User persisted = userRepository.save(user);
         return conversionService.convert(persisted, UserDto.class);
     }

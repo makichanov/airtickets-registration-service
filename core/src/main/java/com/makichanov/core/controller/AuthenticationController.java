@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class AuthenticationController {
-
     private final AuthenticationService authenticationService;
     private final UserService userService;
 
@@ -26,5 +25,4 @@ public class AuthenticationController {
     public UserDto signup(@RequestBody AuthenticatingDto authenticatingDto) {
         return userService.create(authenticatingDto);
     }
-
 }

@@ -14,7 +14,6 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
     @Override
     public OrderDto convert(Order source) {
         // TODO:   userDtoConverter - нужен?
-        UserToUserDtoConverter userDtoConverter = new UserToUserDtoConverter();
         AirTicketToAirTicketDtoConverter airTicketDtoConverter = new AirTicketToAirTicketDtoConverter();
         List<AirTicketDto> airTickets = source.getAirTickets()
                 .stream()

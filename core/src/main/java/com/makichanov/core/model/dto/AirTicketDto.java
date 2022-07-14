@@ -7,7 +7,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 //TODO: @Data - избыточно, разбить на более мелкие аннотации
-//TODO: Спецификаторы доступа для полей где?
+// Normalno
 @Data
 @Builder
 @Schema(description = "Airticket dto")

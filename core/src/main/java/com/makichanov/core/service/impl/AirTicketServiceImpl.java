@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class AirTicketServiceImpl implements AirTicketService {
-
     private final AirTicketRepository repository;
     private final ConversionService conversionService;
 
@@ -26,14 +25,17 @@ public class AirTicketServiceImpl implements AirTicketService {
     @Override
     public AirTicketDto find(Long id) {
         Optional<AirTicket> airTicket = repository.findById(id);
+
         AirTicket item = airTicket.orElseThrow(
                 () -> new EntityNotFoundException("AirTicket not found, requested id " + id));
+
         return conversionService.convert(item, AirTicketDto.class);
     }
 
     @Override
     public List<AirTicketDto> findAll() {
         List<AirTicket> airTickets = repository.findAll();
+
         return airTickets.stream()
                 .map(t -> conversionService.convert(t, AirTicketDto.class))
                 .collect(Collectors.toList());
@@ -43,6 +45,7 @@ public class AirTicketServiceImpl implements AirTicketService {
     public AirTicketDto create(CreatingAirTicketDto airTicketDto) {
         AirTicket airTicket = conversionService.convert(airTicketDto, AirTicket.class);
         AirTicket persisted = repository.save(airTicket);
+
         return conversionService.convert(persisted, AirTicketDto.class);
     }
 
@@ -51,9 +54,11 @@ public class AirTicketServiceImpl implements AirTicketService {
     @Override
     public AirTicketDto delete(Long deleteId) {
         Optional<AirTicket> airTicket = repository.findById(deleteId);
+
         AirTicket item = airTicket.orElseThrow(
                 () -> new EntityNotFoundException("AirTicket not found, requested id " + deleteId));
         repository.delete(item);
+
         return conversionService.convert(item, AirTicketDto.class);
     }
 

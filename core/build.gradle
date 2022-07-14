@@ -4,9 +4,11 @@ plugins {
     id 'java'
 }
 
+task prepareKotlinBuildScriptModel {
+}
+
 group = 'com.makichanov'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 configurations {
     compileOnly {

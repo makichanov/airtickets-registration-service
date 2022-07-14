@@ -17,7 +17,6 @@ import java.util.List;
 @Tag(name = "Airtickets controller", description = "CRUD airtickets operations")
 @RequiredArgsConstructor
 public class AirTicketController {
-
     private final AirTicketService airTicketService;
 //TODO: Рекомендую оборачивать возрващаемые значения в ResponseEntity
 // либо оборачивать в свою кастомную обертку через @ControllerAdvice, например
@@ -46,6 +45,7 @@ public class AirTicketController {
 
 
     //TODO: Где функционал по обновлению билетов?
+    // Will be soon
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Delete airticket by id", description = """
@@ -54,6 +54,4 @@ public class AirTicketController {
     public AirTicketDto delete(@PathVariable Long id) {
         return airTicketService.delete(id);
     }
-    //TODO: Убрать пустую строку снизу
-
 }

@@ -1,2 +1,0 @@
-//todo: Этот файл не нужен, вынести в settings.gradle внешнего проекта.
-rootProject.name = 'core'

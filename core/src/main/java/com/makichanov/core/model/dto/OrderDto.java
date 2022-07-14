@@ -6,7 +6,6 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
-//TODO: Cмотри AirTicketDto
 @Data
 @Builder
 @Schema(description = "Order dto")

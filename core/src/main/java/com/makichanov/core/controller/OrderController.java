@@ -12,7 +12,6 @@ import java.util.List;
 @RequestMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class OrderController {
-
     private final OrderService orderService;
 
     @GetMapping
@@ -36,5 +35,4 @@ public class OrderController {
     public OrderDto delete(Long id) {
         return orderService.delete(id);
     }
-
 }

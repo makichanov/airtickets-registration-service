@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EntityNotFoundException extends RuntimeException {
 
     // TODO: 7/14/22 Кейсы для применения такого конструктора?
+    // 4 Exception constructors should be implemented by default
     public EntityNotFoundException() {
     }
 

@@ -42,9 +42,7 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    //TODO: зачем второй аргумент?
-    //      текущего пользователя можно вытащить внутри метода
-    //      по хорошему рекомендую написать утилитный класс для операции с секьюрностью, текущими пользователями и т.д.
+    //TODO: по хорошему рекомендую написать утилитный класс для операции с секьюрностью, текущими пользователями и т.д.
     @Override
     public OrderDto create(List<Long> ticketsIds, Long userId) {
         List<AirTicket> airTickets = new ArrayList<>();
