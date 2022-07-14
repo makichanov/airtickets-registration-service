@@ -4,6 +4,8 @@ import com.makichanov.core.model.dto.AirTicketDto;
 import com.makichanov.core.model.entity.AirTicket;
 import org.springframework.core.convert.converter.Converter;
 
+//TODO: Настоятельно рекомендую использовать MapStruct
+//TODO: Лучше тут поставь @Component.Создание бина через метод конфига - вариант, но не очевидно
 public class AirTicketToAirTicketDtoConverter implements Converter<AirTicket, AirTicketDto> {
 
     @Override

@@ -55,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
         return conversionService.convert(persisted, OrderDto.class);
     }
 
+    // TODO: Снова конвертация в дто на уровне сервиса.
     @Override
     public OrderDto delete(Long deleteId) {
         Order order = findOrder(deleteId);

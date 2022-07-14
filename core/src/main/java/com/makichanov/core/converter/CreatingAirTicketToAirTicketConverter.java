@@ -6,6 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import java.util.concurrent.TimeUnit;
 
+//TODO: Смотри TODO в других конвертерах
 public class CreatingAirTicketToAirTicketConverter implements Converter<CreatingAirTicketDto, AirTicket> {
 
     @Override

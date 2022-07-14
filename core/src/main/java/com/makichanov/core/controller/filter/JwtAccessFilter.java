@@ -8,22 +8,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAccessFilter extends GenericFilter {
+public class JwtAccessFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
     private final UserDetailsService userDetailsService;
 
     @Override
     @Transactional
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String jwt = extractJwt((HttpServletRequest) request);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String jwt = tokenService.extractJwtFromHeader(request.getHeader("Authorization"));
         if (jwt != null && tokenService.validateToken(jwt)) {
             String login = tokenService.getLoginFromToken(jwt);
             UserDetails userDetails = userDetailsService.loadUserByUsername(login);
@@ -32,13 +34,6 @@ public class JwtAccessFilter extends GenericFilter {
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
-        chain.doFilter(request, response);
-    }
-
-    private String extractJwt(HttpServletRequest request) {
-        String jwt =  request.getHeader("Authorization");
-        return StringUtils.hasText(jwt)
-                ? jwt.replaceFirst("Bearer ", "")
-                : null;
+        filterChain.doFilter(request, response);
     }
 }

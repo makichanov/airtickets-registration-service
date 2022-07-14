@@ -19,14 +19,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "or_id")
     private Long id;
-
+//TODO: алиасы перед каждой колонкой -- избыточно
     @Column(name = "or_total_price_cent")
     private Long totalPrice;
 
+    //TODO: Почему Timestamp? Есть LocalDateTime
     @Column(name = "or_create_date")
     @CreatedDate
     private Timestamp createDate;
 
+    //TODO: Ты уверен, что тебе нужны все каскадные операции?
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "or_us_id", nullable = false)
     @EqualsAndHashCode.Exclude

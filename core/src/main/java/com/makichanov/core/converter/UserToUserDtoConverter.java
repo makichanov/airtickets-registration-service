@@ -8,7 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+//TODO: Смотри TODO в других конвертерах
 public class UserToUserDtoConverter implements Converter<User, UserDto> {
 
     @Override

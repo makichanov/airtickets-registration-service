@@ -1,8 +1,11 @@
+// TODO: 7/14/22 разбиение по пакетам, зачем entity пихать в model?
+//      мб лучше разделить dto на request и response и разбить по отдельным пакетам в model? а пакет entity положить просто в core
 package com.makichanov.core.model.entity;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -30,6 +33,7 @@ public class AirTicket {
     @EqualsAndHashCode.Exclude
     private FlightDetails flightDetails;
 
+    // TODO: 7/14/22 Перепроектировать систему.
     @ManyToMany(mappedBy = "airTickets")
     @EqualsAndHashCode.Exclude
     private List<Order> orders;

@@ -13,12 +13,15 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+//TODO: Предлагаю как-нибудь разделить этот сервис на 2: сервис, который реализует UserDetailsService
+//                                                      и сервис, независимый от Spring Security
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -27,7 +30,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ConversionService conversionService;
+    private final PasswordEncoder passwordEncoder;
 
+    /* TODO: рекомендую следующее:
+                    public User find(Long id)
+                    {
+                        return userRepository.findById(id)
+                                .orElseThrow(() -> new EntityNotFoundException("User not found, requested id " + id));
+                    }
+                    OK
+    */
     @Override
     public UserDto find(Long id) {
         Optional<User> user = userRepository.findById(id);
@@ -49,6 +61,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = conversionService.convert(authenticatingDto, User.class);
         Role role = roleRepository.findByName(DEFAULT_USER_ROLE);
         user.setRole(role);
+        user.setPassword(
+                passwordEncoder.encode(
+                        authenticatingDto.getPassword()));
         User persisted = userRepository.save(user);
         return conversionService.convert(persisted, UserDto.class);
     }

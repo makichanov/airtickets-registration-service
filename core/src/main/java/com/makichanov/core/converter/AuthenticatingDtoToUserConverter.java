@@ -7,17 +7,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-@Component
+//TODO: Настоятельно рекомендую использовать MapStruct
 @RequiredArgsConstructor
 public class AuthenticatingDtoToUserConverter implements Converter<AuthenticatingDto, User> {
-
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User convert(AuthenticatingDto source) {
         User user = new User();
         user.setUsername(source.getUsername());
-        user.setPassword(passwordEncoder.encode(source.getPassword()));
         return user;
     }
 

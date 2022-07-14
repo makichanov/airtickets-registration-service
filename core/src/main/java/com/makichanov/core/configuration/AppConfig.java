@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.HashSet;
 import java.util.Set;
+//TODO: SOLID принципы можно использовать и на практике. Здесь актуален первый. Один конфиг на ТМ, конвертеры и сваггер - плохо.
+// Декомпозировать
 
 @Configuration
 @EnableJpaAuditing
 @EnableTransactionManagement
 public class AppConfig {
+    //TODO: use MapStruct. Зачем так конфигурировать конвертеры?
     @Bean
     public ConversionServiceFactoryBean conversionService(PasswordEncoder passwordEncoder) {
         ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
@@ -39,6 +42,7 @@ public class AppConfig {
         return conversionServiceFactoryBean;
     }
 
+    //TODO: почему именно BCrypt? Не меняй, просто ответь мотивацию использовать именно такой энкодер
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

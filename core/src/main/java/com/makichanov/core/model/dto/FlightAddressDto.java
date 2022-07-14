@@ -3,7 +3,6 @@ package com.makichanov.core.model.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
-
 @Data
 @Builder
 @Schema(description = "Dto to describe departure/destination flight addresses")

@@ -19,6 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+// TODO: 7/14/22 Почему юзаешь deprecated класс? Должны быть альтернативы.
+// - authenticationManagerBean
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtAccessFilter jwtAccessFilter;
 
@@ -27,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .authorizeRequests()
+                //TODO: вынести строки в константы
+                // Agree, will be taken into account in future
                     .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                     .antMatchers(HttpMethod.GET, "/tickets", "/tickets/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/tickets").hasRole("ADMIN")
@@ -37,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     .authenticated()
                 .and()
+                //TODO: 7/14/22 Одна строчка - одна точка
+                // Like antMatchers above, session management is associated with creation policy,
+                // that's why I placed them together
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .addFilterBefore(jwtAccessFilter, UsernamePasswordAuthenticationFilter.class);

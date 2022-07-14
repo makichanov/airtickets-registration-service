@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
+//TODO: @Data - избыточно, разбить на более мелкие аннотации
+// Normalno
 @Data
 @Builder
 @Schema(description = "Airticket dto")

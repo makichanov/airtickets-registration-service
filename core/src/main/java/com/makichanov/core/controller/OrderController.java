@@ -34,7 +34,7 @@ public class OrderController {
                 .toString();
         return orderService.create(from, to , username);
     }
-
+    //TODO: Было бы хорошим тоном отличать dto, которые идут в запрос от dto, которые приходят в ответе. Рефактор на EntityNameRequest и EntityNameResponse
     @DeleteMapping
     public OrderDto delete(Long id) {
         return orderService.delete(id);

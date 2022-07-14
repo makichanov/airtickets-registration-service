@@ -1,5 +1,7 @@
+--todo: сделать ренейм миграций: a) номер по формату Vчисло_число_число__first_letter_in_lower_case
 create table air_tickets
 (
+    --todo: Зачем явно прописывать констреинт. Достаточно просто id bigserial primary key.
     at_id         bigserial
         constraint air_tickets_pk
             primary key,
