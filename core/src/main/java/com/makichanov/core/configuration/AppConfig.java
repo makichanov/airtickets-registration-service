@@ -24,7 +24,7 @@ import java.util.Set;
 public class AppConfig {
     //TODO: use MapStruct. Зачем так конфигурировать конвертеры?
     @Bean
-    public ConversionServiceFactoryBean conversionService(PasswordEncoder passwordEncoder) {
+    public ConversionServiceFactoryBean conversionService() {
         ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
         Set<Converter<?, ?>> converters = new HashSet<>();
         converters.add(new AirTicketToAirTicketDtoConverter());
@@ -33,7 +33,7 @@ public class AppConfig {
         converters.add(new FlightAddressToFlightAddressDtoConverter());
         converters.add(new OrderToOrderDtoConverter());
         converters.add(new UserToUserDtoConverter());
-        converters.add(new AuthenticatingDtoToUserConverter(passwordEncoder));
+        converters.add(new AuthenticatingDtoToUserConverter());
         converters.add(new CreatingFlightDetailsDtoToFlightDetailsConverter());
         converters.add(new FlightDetailsToFlightDetailsDtoConverter());
         converters.add(new CreatingFlightAddressDtoToFlightAddressConverter());

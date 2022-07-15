@@ -4,7 +4,6 @@ create unique index "UIDX_air_tickets_plane_place"
 create table flights
 (
     fl_id          bigserial
-        constraint flights_pk
             primary key,
     fl_flight_from bigserial,
     fl_flight_to   bigserial,

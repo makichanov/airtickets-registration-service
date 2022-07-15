@@ -1,5 +1,3 @@
---todo: убрать алиасы в неймингах столбцов("ak_fa_to" -- трудно понять, что за столбец). Вряд ли на настоящем проекте команда оценит такие нейминги.
---todo: кодстайл мигарций поправить
 create table flight_address
 (
     fa_id              bigserial primary key,
@@ -46,7 +44,6 @@ alter table air_tickets
 create table users
 (
     us_id            bigserial
-        constraint users_pk
             primary key,
     us_username      varchar(50)   not null,
     us_password_hash varchar(60)   not null,
@@ -54,11 +51,9 @@ create table users
 );
 
 -------------------------------------------------------------------------------------------
---todo: codestyle
 create table orders
 (
     or_id               bigserial
-        constraint orders_pk
             primary key,
     or_total_price_cent int not null,
     or_create_date timestamptz not null,
