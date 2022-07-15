@@ -1,11 +1,10 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.dto.OrderDto;
-import com.makichanov.core.model.entity.AirTicket;
-import com.makichanov.core.model.entity.FlightAddress;
-import com.makichanov.core.model.entity.Order;
-import com.makichanov.core.model.entity.User;
+import com.makichanov.core.entity.AirTicket;
+import com.makichanov.core.entity.FlightAddress;
+import com.makichanov.core.entity.Order;
+import com.makichanov.core.entity.User;
 import com.makichanov.core.repository.AirTicketRepository;
 import com.makichanov.core.repository.OrderRepository;
 import com.makichanov.core.repository.UserRepository;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,15 +35,13 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll();
     }
 
-    @Override //FIXME ne rabotaet
+    @Override // FIXME
     public Order create(FlightAddress from, FlightAddress to, String username) {
         List<AirTicket> airTickets = new ArrayList<>();
         Long price = countTotalPrice(airTickets);
-        User user = userRepository.findByUsername(username);
         Order order = new Order();
         order.setAirTickets(airTickets);
         order.setTotalPrice(price);
-        order.setUser(user);
         return orderRepository.save(order);
     }
 

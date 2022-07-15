@@ -1,4 +1,4 @@
-package com.makichanov.core.model.entity;
+package com.makichanov.core.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

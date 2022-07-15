@@ -1,4 +1,4 @@
-package com.makichanov.core.model.entity;
+package com.makichanov.core.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

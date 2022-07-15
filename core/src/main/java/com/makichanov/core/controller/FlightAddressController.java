@@ -1,8 +1,8 @@
 package com.makichanov.core.controller;
 
-import com.makichanov.core.model.dto.CreatingFlightAddressDto;
-import com.makichanov.core.model.dto.FlightAddressDto;
-import com.makichanov.core.model.entity.FlightAddress;
+import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
+import com.makichanov.core.model.response.FlightAddressDto;
+import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.service.FlightAddressService;
 import com.makichanov.core.util.converter.ConversionUtils;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class FlightAddressController {
     }
 
     @PostMapping
-    public ResponseEntity<FlightAddressDto> create(@RequestBody CreatingFlightAddressDto dto) {
+    public ResponseEntity<FlightAddressDto> create(@RequestBody CreateFlightAddressRequestDto dto) {
         FlightAddress flightAddress = flightAddressService.create(dto);
         return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.CREATED);
 

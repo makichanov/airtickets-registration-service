@@ -1,13 +1,13 @@
 package com.makichanov.core.util.converter;
 
-import com.makichanov.core.model.dto.AirTicketDto;
-import com.makichanov.core.model.dto.FlightAddressDto;
-import com.makichanov.core.model.dto.FlightDetailsDto;
-import com.makichanov.core.model.dto.OrderDto;
-import com.makichanov.core.model.entity.AirTicket;
-import com.makichanov.core.model.entity.FlightAddress;
-import com.makichanov.core.model.entity.FlightDetails;
-import com.makichanov.core.model.entity.Order;
+import com.makichanov.core.model.response.AirTicketDto;
+import com.makichanov.core.model.response.FlightAddressDto;
+import com.makichanov.core.model.response.FlightDetailsDto;
+import com.makichanov.core.model.response.OrderDto;
+import com.makichanov.core.entity.AirTicket;
+import com.makichanov.core.entity.FlightAddress;
+import com.makichanov.core.entity.FlightDetails;
+import com.makichanov.core.entity.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.dto.CreatingFlightAddressDto;
-import com.makichanov.core.model.entity.FlightAddress;
+import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
+import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.repository.FlightAddressRepository;
 import com.makichanov.core.service.FlightAddressService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class FlightAddressServiceImpl implements FlightAddressService {
     }
 
     @Override
-    public FlightAddress create(CreatingFlightAddressDto dto) {
+    public FlightAddress create(CreateFlightAddressRequestDto dto) {
         FlightAddress flightAddress = conversionService.convert(dto, FlightAddress.class);
         return flightAddressRepository.save(flightAddress);
     }

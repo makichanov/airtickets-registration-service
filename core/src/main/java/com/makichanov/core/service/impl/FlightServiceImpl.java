@@ -1,10 +1,9 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.dto.CreatingFlightDetailsDto;
-import com.makichanov.core.model.dto.FlightDetailsDto;
-import com.makichanov.core.model.entity.FlightAddress;
-import com.makichanov.core.model.entity.FlightDetails;
+import com.makichanov.core.model.request.CreateFlightDetailsRequestDto;
+import com.makichanov.core.entity.FlightAddress;
+import com.makichanov.core.entity.FlightDetails;
 import com.makichanov.core.repository.FlightAddressRepository;
 import com.makichanov.core.repository.FlightRepository;
 import com.makichanov.core.service.FlightService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public FlightDetails create(CreatingFlightDetailsDto dto) {
+    public FlightDetails create(CreateFlightDetailsRequestDto dto) {
         FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class);
         FlightAddress from = findFlightAddress(dto.getFlightFromId());
         FlightAddress to = findFlightAddress(dto.getFlightToId());

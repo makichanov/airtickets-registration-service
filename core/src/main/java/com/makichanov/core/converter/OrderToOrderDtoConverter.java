@@ -1,23 +1,20 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.dto.AirTicketDto;
-import com.makichanov.core.model.dto.OrderDto;
-import com.makichanov.core.model.entity.Order;
+import com.makichanov.core.model.response.AirTicketDto;
+import com.makichanov.core.model.response.OrderDto;
+import com.makichanov.core.entity.Order;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-//TODO: Смотри TODO в других конвертерах
 public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
 
     @Override
     public OrderDto convert(Order source) {
-        // TODO:   userDtoConverter - нужен?
-        AirTicketToAirTicketDtoConverter airTicketDtoConverter = new AirTicketToAirTicketDtoConverter();
-        List<AirTicketDto> airTickets = source.getAirTickets()
-                .stream()
-                .map(airTicketDtoConverter::convert)
+        AirTicketToAirTicketDtoConverter converter = new AirTicketToAirTicketDtoConverter();
+        List<AirTicketDto> airTickets = source.getAirTickets().stream()
+                .map(converter::convert)
                 .collect(Collectors.toList());
         return OrderDto.builder()
                 .id(source.getId())
@@ -27,5 +24,4 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
                 .airTickets(airTickets)
                 .build();
     }
-
 }

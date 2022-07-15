@@ -1,8 +1,8 @@
 package com.makichanov.core.controller;
 
-import com.makichanov.core.model.dto.AirTicketDto;
-import com.makichanov.core.model.dto.CreatingAirTicketDto;
-import com.makichanov.core.model.entity.AirTicket;
+import com.makichanov.core.model.response.AirTicketDto;
+import com.makichanov.core.model.request.CreateAirTicketRequestDto;
+import com.makichanov.core.entity.AirTicket;
 import com.makichanov.core.service.AirTicketService;
 import com.makichanov.core.util.converter.ConversionUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,8 +24,6 @@ public class AirTicketController {
     private final AirTicketService airTicketService;
     private final ConversionService conversionService;
     private final ConversionUtils conversionUtils;
-//TODO: Рекомендую оборачивать возрващаемые значения в ResponseEntity
-// либо оборачивать в свою кастомную обертку через @ControllerAdvice, например
 
     @GetMapping
     @Operation(summary = "Read all tickets", description = "Returns all tickets from database")
@@ -50,12 +48,11 @@ public class AirTicketController {
     @Operation(summary = "Create airticket", description = """
             Creates ticket in database, returns created ticket
             """)
-    public ResponseEntity<AirTicketDto> create(@RequestBody CreatingAirTicketDto dto) {
+    public ResponseEntity<AirTicketDto> create(@RequestBody CreateAirTicketRequestDto dto) {
         AirTicket airTicket = airTicketService.create(dto);
 
         return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.CREATED);
     }
-
 
     //TODO: Где функционал по обновлению билетов?
     // Will be soon

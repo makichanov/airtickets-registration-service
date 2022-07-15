@@ -1,4 +1,4 @@
-package com.makichanov.core.model.dto;
+package com.makichanov.core.model.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

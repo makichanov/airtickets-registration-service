@@ -1,16 +1,15 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.dto.CreatingAirTicketDto;
-import com.makichanov.core.model.entity.AirTicket;
+import com.makichanov.core.model.request.CreateAirTicketRequestDto;
+import com.makichanov.core.entity.AirTicket;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.concurrent.TimeUnit;
 
-//TODO: Смотри TODO в других конвертерах
-public class CreatingAirTicketToAirTicketConverter implements Converter<CreatingAirTicketDto, AirTicket> {
+public class CreatingAirTicketToAirTicketConverter implements Converter<CreateAirTicketRequestDto, AirTicket> {
 
     @Override
-    public AirTicket convert(CreatingAirTicketDto source) {
+    public AirTicket convert(CreateAirTicketRequestDto source) {
         FlightAddressDtoToFlightAddressConverter converter = new FlightAddressDtoToFlightAddressConverter();
         long arrivalSeconds = TimeUnit.MILLISECONDS.toSeconds(source.getArrivalTime().getTime());
         long departureSeconds = TimeUnit.MILLISECONDS.toSeconds(source.getDepartureTime().getTime());

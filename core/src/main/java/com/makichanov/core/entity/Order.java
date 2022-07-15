@@ -1,6 +1,7 @@
-package com.makichanov.core.model.entity;
+package com.makichanov.core.entity;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -19,7 +20,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "or_id")
     private Long id;
-//TODO: алиасы перед каждой колонкой -- избыточно
+
     @Column(name = "or_total_price_cent")
     private Long totalPrice;
 
@@ -32,7 +33,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "or_us_id", nullable = false)
     @EqualsAndHashCode.Exclude
-    // TODO: Place @CreatedBy annotation
+    @CreatedBy
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

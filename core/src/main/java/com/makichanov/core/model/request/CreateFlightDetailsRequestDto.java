@@ -1,4 +1,4 @@
-package com.makichanov.core.model.dto;
+package com.makichanov.core.model.request;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @Builder
-public class CreatingFlightDetailsDto {
+public class CreateFlightDetailsRequestDto {
 
     private Timestamp departureTime;
 

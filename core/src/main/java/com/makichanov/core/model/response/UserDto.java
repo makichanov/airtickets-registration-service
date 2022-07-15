@@ -1,4 +1,4 @@
-package com.makichanov.core.model.dto;
+package com.makichanov.core.model.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -21,8 +21,5 @@ public class UserDto {
 
     @Schema(description = "User balance in dollars")
     private Double balance;
-
-    @Schema(description = "User orders")
-    private List<OrderDto> orders;
 
 }

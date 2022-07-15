@@ -1,7 +1,7 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.dto.CreatingFlightAddressDto;
-import com.makichanov.core.model.entity.FlightAddress;
+import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
+import com.makichanov.core.entity.FlightAddress;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface FlightAddressService {
 
     FlightAddress find(Long id);
 
-    FlightAddress create(CreatingFlightAddressDto dto);
+    FlightAddress create(CreateFlightAddressRequestDto dto);
 
     FlightAddress delete(Long id);
 }

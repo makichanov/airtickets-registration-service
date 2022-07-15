@@ -1,7 +1,7 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.entity.FlightAddress;
-import com.makichanov.core.model.entity.Order;
+import com.makichanov.core.entity.FlightAddress;
+import com.makichanov.core.entity.Order;
 
 import java.util.List;
 

@@ -1,11 +1,10 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.dto.FlightDetailsDto;
-import com.makichanov.core.model.entity.FlightDetails;
+import com.makichanov.core.model.response.FlightDetailsDto;
+import com.makichanov.core.entity.FlightDetails;
 import org.springframework.core.convert.converter.Converter;
 
 public class FlightDetailsToFlightDetailsDtoConverter implements Converter<FlightDetails, FlightDetailsDto> {
-
     @Override
     public FlightDetailsDto convert(FlightDetails source) {
         FlightAddressToFlightAddressDtoConverter converter = new FlightAddressToFlightAddressDtoConverter();
@@ -18,5 +17,4 @@ public class FlightDetailsToFlightDetailsDtoConverter implements Converter<Fligh
                 .flightTo(converter.convert(source.getFlightTo()))
                 .build();
     }
-
 }

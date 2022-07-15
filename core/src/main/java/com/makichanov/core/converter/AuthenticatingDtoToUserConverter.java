@@ -1,13 +1,10 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.dto.AuthenticatingDto;
-import com.makichanov.core.model.entity.User;
+import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
-//TODO: Настоятельно рекомендую использовать MapStruct
 @RequiredArgsConstructor
 public class AuthenticatingDtoToUserConverter implements Converter<AuthenticatingDto, User> {
 

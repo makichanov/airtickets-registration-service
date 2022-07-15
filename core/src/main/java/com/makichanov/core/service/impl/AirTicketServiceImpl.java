@@ -1,9 +1,8 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.dto.AirTicketDto;
-import com.makichanov.core.model.dto.CreatingAirTicketDto;
-import com.makichanov.core.model.entity.AirTicket;
+import com.makichanov.core.model.request.CreateAirTicketRequestDto;
+import com.makichanov.core.entity.AirTicket;
 import com.makichanov.core.repository.AirTicketRepository;
 import com.makichanov.core.service.AirTicketService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +28,7 @@ public class AirTicketServiceImpl implements AirTicketService {
     }
 
     @Override
-    public AirTicket create(CreatingAirTicketDto airTicketDto) {
+    public AirTicket create(CreateAirTicketRequestDto airTicketDto) {
         AirTicket airTicket = conversionService.convert(airTicketDto, AirTicket.class);
         return repository.save(airTicket);
     }

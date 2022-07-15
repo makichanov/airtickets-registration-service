@@ -1,6 +1,6 @@
 package com.makichanov.core.service.impl;
 
-import com.makichanov.core.model.dto.AuthenticatingDto;
+import com.makichanov.core.model.request.AuthenticatingDto;
 import com.makichanov.core.service.AuthenticationService;
 import com.makichanov.core.util.security.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;

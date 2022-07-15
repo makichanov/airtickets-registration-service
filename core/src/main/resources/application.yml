@@ -1,4 +1,3 @@
-#todo: а не боишься конфликтов из-за порта 8080 сервера?
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ars_db

@@ -1,5 +1,6 @@
-package com.makichanov.core.model.dto;
+package com.makichanov.core.model.request;
 
+import com.makichanov.core.model.response.FlightAddressDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import java.sql.Timestamp;
 @Data
 @Builder
 @Schema(description = "Dto for creating airticket entity")
-public class CreatingAirTicketDto {
+public class CreateAirTicketRequestDto {
 
     @Schema(description = "Plane number")
     private String planeNumber;

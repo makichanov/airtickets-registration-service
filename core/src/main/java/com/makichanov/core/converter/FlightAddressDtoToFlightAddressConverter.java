@@ -1,10 +1,9 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.dto.FlightAddressDto;
-import com.makichanov.core.model.entity.FlightAddress;
+import com.makichanov.core.model.response.FlightAddressDto;
+import com.makichanov.core.entity.FlightAddress;
 import org.springframework.core.convert.converter.Converter;
 
-//TODO: Смотри TODO в других конвертерах
 public class FlightAddressDtoToFlightAddressConverter implements Converter<FlightAddressDto, FlightAddress> {
 
     @Override

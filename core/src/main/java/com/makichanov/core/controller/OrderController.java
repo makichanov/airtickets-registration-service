@@ -1,8 +1,8 @@
 package com.makichanov.core.controller;
 
-import com.makichanov.core.model.dto.OrderDto;
-import com.makichanov.core.model.entity.FlightAddress;
-import com.makichanov.core.model.entity.Order;
+import com.makichanov.core.model.response.OrderDto;
+import com.makichanov.core.entity.FlightAddress;
+import com.makichanov.core.entity.Order;
 import com.makichanov.core.service.OrderService;
 import com.makichanov.core.util.converter.ConversionUtils;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,6 @@ public class OrderController {
         Order order = orderService.create(from, to , username);
         return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.CREATED);
     }
-    //TODO: Было бы хорошим тоном отличать dto, которые идут в запрос от dto, которые приходят в ответе. Рефактор на EntityNameRequest и EntityNameResponse
     @DeleteMapping
     public ResponseEntity<OrderDto> delete(Long id) {
         Order order = orderService.delete(id);

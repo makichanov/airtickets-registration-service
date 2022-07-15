@@ -1,13 +1,13 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.dto.CreatingFlightAddressDto;
-import com.makichanov.core.model.entity.FlightAddress;
+import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
+import com.makichanov.core.entity.FlightAddress;
 import org.springframework.core.convert.converter.Converter;
 
 public class CreatingFlightAddressDtoToFlightAddressConverter
-        implements Converter<CreatingFlightAddressDto, FlightAddress> {
+        implements Converter<CreateFlightAddressRequestDto, FlightAddress> {
     @Override
-    public FlightAddress convert(CreatingFlightAddressDto source) {
+    public FlightAddress convert(CreateFlightAddressRequestDto source) {
         FlightAddress flightAddress = new FlightAddress();
         flightAddress.setAirportName(source.getAirportName());
         flightAddress.setAirportAddress(source.getAirportAddress());

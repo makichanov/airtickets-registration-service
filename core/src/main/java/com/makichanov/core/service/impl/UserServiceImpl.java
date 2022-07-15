@@ -1,10 +1,9 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.dto.AuthenticatingDto;
-import com.makichanov.core.model.dto.UserDto;
-import com.makichanov.core.model.entity.Role;
-import com.makichanov.core.model.entity.User;
+import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.entity.Role;
+import com.makichanov.core.entity.User;
 import com.makichanov.core.repository.RoleRepository;
 import com.makichanov.core.repository.UserRepository;
 import com.makichanov.core.service.UserService;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

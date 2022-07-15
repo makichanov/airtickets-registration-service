@@ -1,7 +1,5 @@
-package com.makichanov.core.model.dto;
+package com.makichanov.core.model.response;
 
-import com.makichanov.core.model.entity.AirTicket;
-import com.makichanov.core.model.entity.FlightAddress;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

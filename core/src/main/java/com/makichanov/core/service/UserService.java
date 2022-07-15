@@ -1,7 +1,7 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.dto.AuthenticatingDto;
-import com.makichanov.core.model.entity.User;
+import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.entity.User;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.makichanov.core.repository;
 
-import com.makichanov.core.model.entity.Role;
+import com.makichanov.core.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
