@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.HashSet;
 import java.util.Set;
-//TODO: SOLID принципы можно использовать и на практике. Здесь актуален первый. Один конфиг на ТМ, конвертеры и сваггер - плохо.
-// Декомпозировать
 
 @Configuration
 @EnableJpaAuditing

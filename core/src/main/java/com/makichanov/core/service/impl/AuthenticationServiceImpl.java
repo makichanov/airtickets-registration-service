@@ -1,8 +1,8 @@
-package com.makichanov.core.security.impl;
+package com.makichanov.core.service.impl;
 
 import com.makichanov.core.model.dto.AuthenticatingDto;
-import com.makichanov.core.security.AuthenticationService;
-import com.makichanov.core.security.TokenService;
+import com.makichanov.core.service.AuthenticationService;
+import com.makichanov.core.util.security.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
 
     @Override
     public String authenticate(AuthenticatingDto dto) {
@@ -23,6 +22,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        return tokenService.generateToken(userDetails.getUsername(), userDetails.getPassword());
+        return JwtTokenUtils.generateToken(userDetails.getUsername(), userDetails.getPassword());
     }
 }

@@ -1,18 +1,16 @@
 package com.makichanov.core.service;
 
 import com.makichanov.core.model.dto.AuthenticatingDto;
-import com.makichanov.core.model.dto.UserDto;
+import com.makichanov.core.model.entity.User;
 
 import java.util.List;
 
 public interface UserService {
+    User find(Long id);
 
-    UserDto find(Long id);
+    List<User> findAll();
 
-    List<UserDto> findAll();
+    User create(AuthenticatingDto authenticatingDto);
 
-    UserDto create(AuthenticatingDto authenticatingDto);
-
-    UserDto delete(Long deleteId);
-
+    User delete(Long deleteId);
 }

@@ -8,29 +8,30 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-// TODO: 7/14/22 Почему юзаешь deprecated класс? Должны быть альтернативы.
-// - authenticationManagerBean
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
     private final JwtAccessFilter jwtAccessFilter;
 
-    public void configure(HttpSecurity httpSecurity) throws Exception {
+    //TODO: вынести строки в константы
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                     .disable()
                 .authorizeRequests()
-                //TODO: вынести строки в константы
-                // Agree, will be taken into account in future
                     .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                     .antMatchers(HttpMethod.GET, "/tickets", "/tickets/**").permitAll()
                     .antMatchers(HttpMethod.POST, "/tickets").hasRole("ADMIN")
@@ -41,12 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     .authenticated()
                 .and()
-                //TODO: 7/14/22 Одна строчка - одна точка
-                // Like antMatchers above, session management is associated with creation policy,
-                // that's why I placed them together
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .addFilterBefore(jwtAccessFilter, UsernamePasswordAuthenticationFilter.class);
+        return httpSecurity.build();
     }
 
     @Bean
@@ -58,8 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

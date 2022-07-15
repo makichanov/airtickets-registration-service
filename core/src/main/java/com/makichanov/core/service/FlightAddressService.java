@@ -1,18 +1,16 @@
 package com.makichanov.core.service;
 
 import com.makichanov.core.model.dto.CreatingFlightAddressDto;
-import com.makichanov.core.model.dto.FlightAddressDto;
+import com.makichanov.core.model.entity.FlightAddress;
 
 import java.util.List;
 
 public interface FlightAddressService {
+    List<FlightAddress> findAll();
 
-    List<FlightAddressDto> findAll();
+    FlightAddress find(Long id);
 
-    FlightAddressDto findById(Long id);
+    FlightAddress create(CreatingFlightAddressDto dto);
 
-    FlightAddressDto create(CreatingFlightAddressDto dto);
-
-    FlightAddressDto delete(Long id);
-
+    FlightAddress delete(Long id);
 }

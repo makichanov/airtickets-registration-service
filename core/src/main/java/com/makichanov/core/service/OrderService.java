@@ -1,18 +1,16 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.dto.OrderDto;
 import com.makichanov.core.model.entity.FlightAddress;
+import com.makichanov.core.model.entity.Order;
 
 import java.util.List;
 
 public interface OrderService {
+    Order find(Long id);
 
-    OrderDto find(Long id);
+    List<Order> findAll();
 
-    List<OrderDto> findAll();
+    Order create(FlightAddress from, FlightAddress to, String username);
 
-    OrderDto create(FlightAddress from, FlightAddress to, String username);
-
-    OrderDto delete(Long deleteId);
-
+    Order delete(Long deleteId);
 }

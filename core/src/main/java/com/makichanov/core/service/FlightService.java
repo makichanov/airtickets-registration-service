@@ -1,18 +1,16 @@
 package com.makichanov.core.service;
 
 import com.makichanov.core.model.dto.CreatingFlightDetailsDto;
-import com.makichanov.core.model.dto.FlightDetailsDto;
+import com.makichanov.core.model.entity.FlightDetails;
 
 import java.util.List;
 
 public interface FlightService {
+    List<FlightDetails> findAll();
 
-    List<FlightDetailsDto> findAll();
+    FlightDetails find(Long id);
 
-    FlightDetailsDto findById(Long id);
+    FlightDetails create(CreatingFlightDetailsDto dto);
 
-    FlightDetailsDto create(CreatingFlightDetailsDto dto);
-
-    FlightDetailsDto delete(Long id);
-
+    FlightDetails delete(Long id);
 }

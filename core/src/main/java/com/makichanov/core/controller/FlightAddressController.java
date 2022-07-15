@@ -2,35 +2,50 @@ package com.makichanov.core.controller;
 
 import com.makichanov.core.model.dto.CreatingFlightAddressDto;
 import com.makichanov.core.model.dto.FlightAddressDto;
+import com.makichanov.core.model.entity.FlightAddress;
 import com.makichanov.core.service.FlightAddressService;
+import com.makichanov.core.util.converter.ConversionUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/destinations")
+@RequestMapping(value = "/destinations", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class FlightAddressController {
     private final FlightAddressService flightAddressService;
+    private final ConversionService conversionService;
+    private final ConversionUtils conversionUtils;
 
     @GetMapping
-    public List<FlightAddressDto> read() {
-        return flightAddressService.findAll();
+    public ResponseEntity<List<FlightAddressDto>> read() {
+        List<FlightAddress> flightAddresses = flightAddressService.findAll();
+
+        return new ResponseEntity<>(conversionUtils.toFlightAddressDtoList(flightAddresses), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public FlightAddressDto read(@PathVariable Long id) {
-        return flightAddressService.findById(id);
+    public ResponseEntity<FlightAddressDto> read(@PathVariable Long id) {
+        FlightAddress flightAddress = flightAddressService.find(id);
+        return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
     }
 
     @PostMapping
-    public FlightAddressDto create(@RequestBody CreatingFlightAddressDto dto) {
-        return flightAddressService.create(dto);
+    public ResponseEntity<FlightAddressDto> create(@RequestBody CreatingFlightAddressDto dto) {
+        FlightAddress flightAddress = flightAddressService.create(dto);
+        return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.CREATED);
+
     }
 
     @DeleteMapping("/{id}")
-    public FlightAddressDto delete(@PathVariable Long id) {
-        return flightAddressService.delete(id);
+    public ResponseEntity<FlightAddressDto> delete(@PathVariable Long id) {
+        FlightAddress flightAddress = flightAddressService.delete(id);
+        return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
+
     }
 }

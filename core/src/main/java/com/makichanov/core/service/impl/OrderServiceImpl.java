@@ -22,28 +22,23 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-
     private final OrderRepository orderRepository;
     private final AirTicketRepository ticketRepository;
     private final ConversionService conversionService;
     private final UserRepository userRepository;
 
     @Override
-    public OrderDto find(Long id) {
-        Order order = findOrder(id);
-        return conversionService.convert(order, OrderDto.class);
+    public Order find(Long id) {
+        return findById(id);
     }
 
     @Override
-    public List<OrderDto> findAll() {
-        List<Order> orders = orderRepository.findAll();
-        return orders.stream()
-                .map(o -> conversionService.convert(o, OrderDto.class))
-                .collect(Collectors.toList());
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 
     @Override //FIXME ne rabotaet
-    public OrderDto create(FlightAddress from, FlightAddress to, String username) {
+    public Order create(FlightAddress from, FlightAddress to, String username) {
         List<AirTicket> airTickets = new ArrayList<>();
         Long price = countTotalPrice(airTickets);
         User user = userRepository.findByUsername(username);
@@ -51,19 +46,17 @@ public class OrderServiceImpl implements OrderService {
         order.setAirTickets(airTickets);
         order.setTotalPrice(price);
         order.setUser(user);
-        Order persisted = orderRepository.save(order);
-        return conversionService.convert(persisted, OrderDto.class);
+        return orderRepository.save(order);
     }
 
-    // TODO: Снова конвертация в дто на уровне сервиса.
     @Override
-    public OrderDto delete(Long deleteId) {
-        Order order = findOrder(deleteId);
+    public Order delete(Long id) {
+        Order order = findById(id);
         orderRepository.delete(order);
-        return conversionService.convert(order, OrderDto.class);
+        return order;
     }
 
-    private Order findOrder(Long id) {
+    private Order findById(Long id) {
         Optional<Order> order = orderRepository.findById(id);
         return order.orElseThrow(
                 () -> new EntityNotFoundException("Order not found, requested id " + id));
@@ -80,5 +73,4 @@ public class OrderServiceImpl implements OrderService {
                 .map(AirTicket::getPrice)
                 .count();
     }
-
 }

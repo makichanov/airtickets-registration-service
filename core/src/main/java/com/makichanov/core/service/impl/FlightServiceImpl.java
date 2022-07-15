@@ -19,44 +19,38 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class FlightServiceImpl implements FlightService {
-
     private final FlightRepository flightsRepository;
     private final FlightAddressRepository flightAddressRepository;
     private final ConversionService conversionService;
 
     @Override
-    public List<FlightDetailsDto> findAll() {
-        List<FlightDetails> flightDetails = flightsRepository.findAll();
-        return flightDetails.stream()
-                .map(d -> conversionService.convert(d, FlightDetailsDto.class))
-                .collect(Collectors.toList());
+    public List<FlightDetails> findAll() {
+        return flightsRepository.findAll();
     }
 
     @Override
-    public FlightDetailsDto findById(Long id) {
-        FlightDetails flightDetails = findFlightDetails(id);
-        return conversionService.convert(flightDetails, FlightDetailsDto.class);
+    public FlightDetails find(Long id) {
+        return findById(id);
     }
 
     @Override
-    public FlightDetailsDto create(CreatingFlightDetailsDto dto) {
+    public FlightDetails create(CreatingFlightDetailsDto dto) {
         FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class);
         FlightAddress from = findFlightAddress(dto.getFlightFromId());
         FlightAddress to = findFlightAddress(dto.getFlightToId());
         flightDetails.setFlightFrom(from);
         flightDetails.setFlightTo(to);
-        FlightDetails persisted = flightsRepository.save(flightDetails);
-        return conversionService.convert(persisted, FlightDetailsDto.class);
+        return flightsRepository.save(flightDetails);
     }
 
     @Override
-    public FlightDetailsDto delete(Long id) {
-        FlightDetails flightDetails = findFlightDetails(id);
+    public FlightDetails delete(Long id) {
+        FlightDetails flightDetails = findById(id);
         flightsRepository.delete(flightDetails);
-        return conversionService.convert(flightDetails, FlightDetailsDto.class);
+        return flightDetails;
     }
 
-    private FlightDetails findFlightDetails(Long id) {
+    private FlightDetails findById(Long id) {
         Optional<FlightDetails> flightDetails = flightsRepository.findById(id);
         return flightDetails.orElseThrow(
                 () -> new EntityNotFoundException("FlightDetails not found, requested id " + id));

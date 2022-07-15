@@ -1,19 +1,17 @@
 package com.makichanov.core.service;
 
 
-import com.makichanov.core.model.dto.AirTicketDto;
 import com.makichanov.core.model.dto.CreatingAirTicketDto;
+import com.makichanov.core.model.entity.AirTicket;
 
 import java.util.List;
 //TODO: Отказываемся от интерфейсной модели сервисов
 public interface AirTicketService {
+    AirTicket find(Long id);
 
-    AirTicketDto find(Long id);
+    List<AirTicket> findAll();
 
-    List<AirTicketDto> findAll();
+    AirTicket create(CreatingAirTicketDto userDto);
 
-    AirTicketDto create(CreatingAirTicketDto userDto);
-
-    AirTicketDto delete(Long deleteId);
-
+    AirTicket delete(Long deleteId);
 }

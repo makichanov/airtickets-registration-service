@@ -1,32 +1,32 @@
-package com.makichanov.core.security.impl;
+package com.makichanov.core.util.security;
 
-import com.makichanov.core.security.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.internal.util.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-@Service
+@Component
 @Slf4j
-public class JwtTokenServiceImpl implements TokenService {
+public final class JwtTokenUtils {
 
     @Value("${security.jwt.secret}")
-    private String jwtSecret;
+    private static String jwtSecret;
 
     @Value("${security.jwt.expiration-days}")
-    private int expirationDays;
+    private static int expirationDays;
 
-    @Override
-    public String generateToken(String username, String password) {
+    private JwtTokenUtils() {}
+
+    public static String generateToken(String username, String password) {
         Date expirationDate = Date.from(
                 LocalDate.now()
                         .plusDays(expirationDays)
@@ -39,8 +39,7 @@ public class JwtTokenServiceImpl implements TokenService {
                 .compact();
     }
 
-    @Override
-    public boolean validateToken(String token) {
+    public static boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
@@ -52,8 +51,7 @@ public class JwtTokenServiceImpl implements TokenService {
         return false;
     }
 
-    @Override
-    public String getLoginFromToken(String token) {
+    public static String getLoginFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
@@ -61,8 +59,7 @@ public class JwtTokenServiceImpl implements TokenService {
         return claims.getSubject();
     }
 
-    @Override
-    public String extractJwtFromHeader(String authorizationHeader) {
+    public static String extractJwtFromHeader(String authorizationHeader) {
         return StringUtils.hasText(authorizationHeader)
                 ? authorizationHeader.replaceFirst("Bearer ", "")
                 : null;
