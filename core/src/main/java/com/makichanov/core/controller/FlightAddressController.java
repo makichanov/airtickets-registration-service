@@ -1,6 +1,7 @@
 package com.makichanov.core.controller;
 
 import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
+import com.makichanov.core.model.request.UpdateFlightAddressRequestDto;
 import com.makichanov.core.model.response.FlightAddressDto;
 import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.service.FlightAddressService;
@@ -31,19 +32,30 @@ public class FlightAddressController {
     @GetMapping("/{id}")
     public ResponseEntity<FlightAddressDto> read(@PathVariable Long id) {
         FlightAddress flightAddress = flightAddressService.find(id);
+
         return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<FlightAddressDto> create(@RequestBody CreateFlightAddressRequestDto dto) {
         FlightAddress flightAddress = flightAddressService.create(dto);
+
         return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.CREATED);
 
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<FlightAddressDto> update(@PathVariable Long id,
+                                                   @RequestBody UpdateFlightAddressRequestDto dto) {
+        FlightAddress flightAddress = flightAddressService.update(id, dto);
+
+        return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<FlightAddressDto> delete(@PathVariable Long id) {
         FlightAddress flightAddress = flightAddressService.delete(id);
+
         return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
 
     }

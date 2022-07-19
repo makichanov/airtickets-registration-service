@@ -1,6 +1,7 @@
 package com.makichanov.core.controller;
 
 import com.makichanov.core.model.request.CreateFlightDetailsRequestDto;
+import com.makichanov.core.model.request.UpdateFlightDetailsRequestDto;
 import com.makichanov.core.model.response.FlightDetailsDto;
 import com.makichanov.core.entity.FlightDetails;
 import com.makichanov.core.service.FlightService;
@@ -24,24 +25,36 @@ public class FlightController {
     @GetMapping
     public ResponseEntity<List<FlightDetailsDto>> read() {
         List<FlightDetails> flightDetails = flightService.findAll();
+
         return new ResponseEntity<>(ConversionUtils.toFlightDetailsDtoList(flightDetails), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<FlightDetailsDto> read(@PathVariable Long id) {
         FlightDetails flightDetails = flightService.find(id);
+
         return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<FlightDetailsDto> create(@RequestBody CreateFlightDetailsRequestDto dto) {
         FlightDetails flightDetails = flightService.create(dto);
+
         return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<FlightDetailsDto> update(@PathVariable Long id,
+                                                   @RequestBody UpdateFlightDetailsRequestDto dto) {
+        FlightDetails flightDetails = flightService.update(id, dto);
+
+        return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<FlightDetailsDto> delete(@PathVariable Long id) {
         FlightDetails flightDetails = flightService.delete(id);
+
         return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.OK);
     }
 }

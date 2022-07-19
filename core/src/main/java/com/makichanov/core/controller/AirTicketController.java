@@ -1,5 +1,6 @@
 package com.makichanov.core.controller;
 
+import com.makichanov.core.model.request.UpdateAirTicketRequestDto;
 import com.makichanov.core.model.response.AirTicketDto;
 import com.makichanov.core.model.request.CreateAirTicketRequestDto;
 import com.makichanov.core.entity.AirTicket;
@@ -53,8 +54,13 @@ public class AirTicketController {
         return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.CREATED);
     }
 
-    //TODO: Где функционал по обновлению билетов?
-    // Will be soon
+    @PatchMapping("/{id}")
+    public ResponseEntity<AirTicketDto> update(@PathVariable Long id, @RequestBody UpdateAirTicketRequestDto dto) {
+        AirTicket airTicket = airTicketService.update(id, dto);
+
+        return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Delete airticket by id", description = """

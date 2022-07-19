@@ -4,6 +4,7 @@ import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.model.request.CreateFlightDetailsRequestDto;
 import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.entity.FlightDetails;
+import com.makichanov.core.model.request.UpdateFlightDetailsRequestDto;
 import com.makichanov.core.repository.FlightAddressRepository;
 import com.makichanov.core.repository.FlightRepository;
 import com.makichanov.core.service.FlightService;
@@ -39,6 +40,23 @@ public class FlightServiceImpl implements FlightService {
         flightDetails.setFlightFrom(from);
         flightDetails.setFlightTo(to);
         return flightsRepository.save(flightDetails);
+    }
+
+    @Override
+    public FlightDetails update(Long id, UpdateFlightDetailsRequestDto dto) {
+        FlightDetails flightDetails = findById(id);
+        FlightAddress flightAddressFrom = findFlightAddress(dto.getFlightFromId());
+        FlightAddress flightAddressTo = findFlightAddress(dto.getFlightToId());
+
+        flightDetails.setDepartureTime(dto.getDepartureTime());
+        flightDetails.setArrivalTime(dto.getArrivalTime());
+        flightDetails.setBasePrice((long) (dto.getBasePrice() * 100));
+        flightDetails.setMaxPlaces(dto.getMaxPlaces());
+        flightDetails.setPlacesSold(dto.getPlacesSold());
+        flightDetails.setFlightFrom(flightAddressFrom);
+        flightDetails.setFlightTo(flightAddressTo);
+
+        return flightDetails;
     }
 
     @Override
