@@ -4,8 +4,3 @@ spring:
     username: ars_user
     password: ars_user_pass
     driver-class-name: org.postgresql.Driver
-
-security:
-  jwt:
-    secret: hhg9z5fF13Y5UYmwy6Dh61p2eQGAJVNYy4Ub2Em4c6csuDJ2eVkHysbcsRs1
-    expiration-days: 5

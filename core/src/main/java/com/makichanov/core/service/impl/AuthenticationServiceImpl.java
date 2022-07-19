@@ -1,6 +1,6 @@
 package com.makichanov.core.service.impl;
 
-import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.model.request.AuthenticateRequestDto;
 import com.makichanov.core.service.AuthenticationService;
 import com.makichanov.core.util.security.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public String authenticate(AuthenticatingDto dto) {
+    public String authenticate(AuthenticateRequestDto dto) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);

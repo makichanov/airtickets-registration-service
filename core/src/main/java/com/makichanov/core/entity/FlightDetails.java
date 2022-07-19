@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,20 +15,25 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class FlightDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fl_id")
+    @Column(name = "flight_id")
     private Long id;
 
-    @Column(name = "fl_departure_time")
-    private Timestamp departureTime;
+    @Column(name = "departure_time")
+    private LocalDateTime departureTime;
 
-    @Column(name = "fl_arrival_time")
-    private Timestamp arrivalTime;
+    @Column(name = "arrival_time")
+    private LocalDateTime arrivalTime;
 
-    @Column(name = "fl_base_price_cent")
+    @Column(name = "base_price_cent")
     private Long basePrice;
+
+    @Column(name = "max_places")
+    private Integer maxPlaces;
+
+    @Column(name = "places_sold")
+    private Integer placesSold = 0;
 
     @OneToMany(mappedBy = "flightDetails")
     @EqualsAndHashCode.Exclude
@@ -35,12 +41,15 @@ public class FlightDetails {
 
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "fl_flight_from")
+    @JoinColumn(name = "flight_from")
     private FlightAddress flightFrom;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "fl_flight_to")
+    @JoinColumn(name = "flight_to")
     @EqualsAndHashCode.Exclude
     private FlightAddress flightTo;
 
+    public void incrementPlacesSold() {
+        placesSold++;
+    }
 }

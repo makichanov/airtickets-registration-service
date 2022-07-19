@@ -17,17 +17,14 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "us_id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "us_username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "us_password_hash")
+    @Column(name = "password_hash")
     private String password;
-
-    @Column(name = "us_balance_cent")
-    private Integer balance = 0;
 
     // TODO: 7/14/22 Про двустороннюю связь вопрос был задан не единожды.
     @OneToMany(mappedBy = "user")
@@ -35,7 +32,7 @@ public class User implements UserDetails {
     private List<Order> orders = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "us_role", nullable = false)
+    @JoinColumn(name = "role", nullable = false)
     private Role role;
 
     //TODO: 7/14/22 Hardcode

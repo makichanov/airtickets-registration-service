@@ -23,14 +23,13 @@ import java.util.List;
 public class AirTicketController {
     private final AirTicketService airTicketService;
     private final ConversionService conversionService;
-    private final ConversionUtils conversionUtils;
 
     @GetMapping
     @Operation(summary = "Read all tickets", description = "Returns all tickets from database")
     public ResponseEntity<List<AirTicketDto>> read() {
         List<AirTicket> airTickets = airTicketService.findAll();
 
-        return new ResponseEntity<>(conversionUtils.toAirTicketDtoList(airTickets), HttpStatus.OK);
+        return new ResponseEntity<>(ConversionUtils.toAirTicketDtoList(airTickets), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

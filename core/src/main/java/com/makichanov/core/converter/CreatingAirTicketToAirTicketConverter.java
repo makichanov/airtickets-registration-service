@@ -10,12 +10,7 @@ public class CreatingAirTicketToAirTicketConverter implements Converter<CreateAi
 
     @Override
     public AirTicket convert(CreateAirTicketRequestDto source) {
-        FlightAddressDtoToFlightAddressConverter converter = new FlightAddressDtoToFlightAddressConverter();
-        long arrivalSeconds = TimeUnit.MILLISECONDS.toSeconds(source.getArrivalTime().getTime());
-        long departureSeconds = TimeUnit.MILLISECONDS.toSeconds(source.getDepartureTime().getTime());
-        Long flightTimeSeconds = arrivalSeconds - departureSeconds;
         AirTicket airTicket = new AirTicket();
-        airTicket.setPlaneNumber(source.getPlaneNumber());
         airTicket.setPrice((long) (source.getPrice() * 100));
         airTicket.setPlace(source.getPlace());
         return airTicket;

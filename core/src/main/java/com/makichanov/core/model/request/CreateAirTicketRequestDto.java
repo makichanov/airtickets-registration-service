@@ -6,9 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
 @Schema(description = "Dto for creating airticket entity")
 public class CreateAirTicketRequestDto {
 
@@ -19,13 +19,13 @@ public class CreateAirTicketRequestDto {
     private Double price;
 
     @Schema(description = "Ticket place in plane")
-    private String place;
+    private Integer place;
 
     @Schema(description = "Flight departure time")
-    private Timestamp departureTime;
+    private LocalDateTime departureTime;
 
     @Schema(description = "Flight arrival time")
-    private Timestamp arrivalTime;
+    private LocalDateTime arrivalTime;
 
     @Schema(description = "Departure address")
     private FlightAddressDto addressFrom;

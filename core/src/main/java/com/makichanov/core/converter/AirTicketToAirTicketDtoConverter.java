@@ -14,7 +14,6 @@ public class AirTicketToAirTicketDtoConverter implements Converter<AirTicket, Ai
                 new FlightDetailsToFlightDetailsDtoConverter();
         return AirTicketDto.builder()
                 .id(source.getId())
-                .planeNumber(source.getPlaneNumber())
                 .price((double) source.getPrice() / 100)
                 .place(source.getPlace())
                 .flightDetails(converter.convert(source.getFlightDetails()))

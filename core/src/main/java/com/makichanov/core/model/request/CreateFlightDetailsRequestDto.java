@@ -4,19 +4,21 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
 public class CreateFlightDetailsRequestDto {
 
-    private Timestamp departureTime;
+    private LocalDateTime departureTime;
 
-    private Timestamp arrivalTime;
+    private LocalDateTime arrivalTime;
 
     private Double basePrice;
 
     private Long flightFromId;
 
     private Long flightToId;
+
+    private Integer maxPlaces;
 
 }

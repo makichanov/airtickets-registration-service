@@ -1,7 +1,7 @@
 package com.makichanov.core.controller;
 
+import com.makichanov.core.model.request.CreateOrderRequestDto;
 import com.makichanov.core.model.response.OrderDto;
-import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.entity.Order;
 import com.makichanov.core.service.OrderService;
 import com.makichanov.core.util.converter.ConversionUtils;
@@ -10,7 +10,6 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,32 +20,34 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final ConversionService conversionService;
-    private final ConversionUtils conversionUtils;
 
     @GetMapping
-    public ResponseEntity<List<OrderDto>> read() {
-        List<Order> orders = orderService.findAll();
-        return new ResponseEntity<>(conversionUtils.toOrdersDtoList(orders), HttpStatus.OK);
+    public ResponseEntity<List<OrderDto>> readAll(@RequestParam(required = false) Long userId) {
+        List<Order> orders = userId == null
+                ? orderService.findAll()
+                : orderService.findByUserId(userId);
+
+        return new ResponseEntity<>(ConversionUtils.toOrdersDtoList(orders), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> read(@PathVariable Long id) {
         Order order = orderService.find(id);
+
         return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<OrderDto> create(@RequestBody FlightAddress from, FlightAddress to) {
-        String username = SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal()
-                .toString();
-        Order order = orderService.create(from, to , username);
+    public ResponseEntity<OrderDto> create(@RequestBody CreateOrderRequestDto dto) {
+        Order order = orderService.create(dto);
+
         return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.CREATED);
     }
-    @DeleteMapping
-    public ResponseEntity<OrderDto> delete(Long id) {
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<OrderDto> delete(@PathVariable Long id) {
         Order order = orderService.delete(id);
+
         return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.OK);
     }
 }

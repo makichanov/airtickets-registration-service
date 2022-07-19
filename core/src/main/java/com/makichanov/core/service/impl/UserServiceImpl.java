@@ -1,7 +1,7 @@
 package com.makichanov.core.service.impl;
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.model.request.AuthenticateRequestDto;
 import com.makichanov.core.entity.Role;
 import com.makichanov.core.entity.User;
 import com.makichanov.core.repository.RoleRepository;
@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(AuthenticatingDto authenticatingDto) {
-        User user = conversionService.convert(authenticatingDto, User.class);
+    public User create(AuthenticateRequestDto authenticateRequestDto) {
+        User user = conversionService.convert(authenticateRequestDto, User.class);
         Role role = roleRepository.findByName(DEFAULT_USER_ROLE);
         user.setRole(role);
         user.setPassword(
                 passwordEncoder.encode(
-                        authenticatingDto.getPassword()));
+                        authenticateRequestDto.getPassword()));
         return userRepository.save(user);
     }
 

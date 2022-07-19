@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -12,11 +13,15 @@ public class FlightDetailsDto {
 
     private Long id;
 
-    private Timestamp departureTime;
+    private LocalDateTime departureTime;
 
-    private Timestamp arrivalTime;
+    private LocalDateTime arrivalTime;
 
     private Double basePrice;
+
+    private Integer maxPlaces;
+
+    private Integer placesSold;
 
     @EqualsAndHashCode.Exclude
     private FlightAddressDto flightFrom;

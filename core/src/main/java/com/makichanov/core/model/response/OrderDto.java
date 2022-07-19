@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 @Data
 @Builder
@@ -18,7 +19,7 @@ public class OrderDto {
     private Double totalPrice;
 
     @Schema(description = "Order create date")
-    private Timestamp createDate;
+    private LocalDateTime createDate;
 
     @Schema(description = "User that posted an order")
     private Long userId;

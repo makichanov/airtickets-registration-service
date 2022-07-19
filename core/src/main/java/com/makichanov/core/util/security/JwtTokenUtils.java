@@ -18,30 +18,28 @@ import java.util.Date;
 @Slf4j
 public final class JwtTokenUtils {
 
-    @Value("${security.jwt.secret}")
-    private static String jwtSecret;
+    private static final String JWT_SECRET = "hhg9z5fF13Y5UYmwy6Dh61p2eQGAJVNYy4Ub2Em4c6csuDJ2eVkHysbcsRs1";
 
-    @Value("${security.jwt.expiration-days}")
-    private static int expirationDays;
+    private static final int TOKEN_EXPIRATION_DAYS = 5;
 
     private JwtTokenUtils() {}
 
     public static String generateToken(String username, String password) {
         Date expirationDate = Date.from(
                 LocalDate.now()
-                        .plusDays(expirationDays)
+                        .plusDays(TOKEN_EXPIRATION_DAYS)
                         .atStartOfDay(ZoneId.systemDefault())
                         .toInstant());
         return Jwts.builder()
                 .setSubject(username)
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
 
     public static boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
             return true;
         } catch (SignatureException e) {
             log.error("Attempting to parse invalid JWT", e);
@@ -53,7 +51,7 @@ public final class JwtTokenUtils {
 
     public static String getLoginFromToken(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+                .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();

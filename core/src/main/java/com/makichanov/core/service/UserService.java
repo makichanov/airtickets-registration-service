@@ -1,6 +1,6 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.model.request.AuthenticateRequestDto;
 import com.makichanov.core.entity.User;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    User create(AuthenticatingDto authenticatingDto);
+    User create(AuthenticateRequestDto authenticateRequestDto);
 
     User delete(Long deleteId);
 }

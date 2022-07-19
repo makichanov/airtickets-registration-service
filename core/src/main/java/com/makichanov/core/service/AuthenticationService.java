@@ -1,7 +1,7 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.request.AuthenticatingDto;
+import com.makichanov.core.model.request.AuthenticateRequestDto;
 
 public interface AuthenticationService {
-    String authenticate(AuthenticatingDto dto);
+    String authenticate(AuthenticateRequestDto dto);
 }

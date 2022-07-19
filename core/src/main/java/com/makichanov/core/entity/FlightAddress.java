@@ -10,16 +10,15 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class FlightAddress {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "fa_id")
+    @Column(name = "flight_address_id")
     private Long id;
 
-    @Column(name = "fa_airport_name")
+    @Column(name = "airport_name")
     private String airportName;
 
-    @Column(name = "fa_airport_address")
+    @Column(name = "airport_address")
     private String airportAddress;
 
     @OneToMany(mappedBy = "flightFrom")
@@ -29,5 +28,4 @@ public class FlightAddress {
     @OneToMany(mappedBy = "flightTo")
     @EqualsAndHashCode.Exclude
     private List<FlightDetails> flightsTo;
-
 }

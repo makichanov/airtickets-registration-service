@@ -15,6 +15,8 @@ public class FlightDetailsToFlightDetailsDtoConverter implements Converter<Fligh
                 .basePrice((double) source.getBasePrice() / 100)
                 .flightFrom(converter.convert(source.getFlightFrom()))
                 .flightTo(converter.convert(source.getFlightTo()))
+                .maxPlaces(source.getMaxPlaces())
+                .placesSold(source.getPlacesSold())
                 .build();
     }
 }

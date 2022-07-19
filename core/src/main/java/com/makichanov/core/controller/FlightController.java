@@ -20,12 +20,11 @@ import java.util.List;
 public class FlightController {
     private final FlightService flightService;
     private final ConversionService conversionService;
-    private final ConversionUtils conversionUtils;
 
     @GetMapping
     public ResponseEntity<List<FlightDetailsDto>> read() {
         List<FlightDetails> flightDetails = flightService.findAll();
-        return new ResponseEntity<>(conversionUtils.toFlightDetailsDtoList(flightDetails), HttpStatus.OK);
+        return new ResponseEntity<>(ConversionUtils.toFlightDetailsDtoList(flightDetails), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
