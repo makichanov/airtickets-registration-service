@@ -18,6 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FlightService {
     private final FlightRepository flightsRepository;
+    private final FlightAddressService flightAddressService;
     private final FlightAddressRepository flightAddressRepository;
 
     public List<FlightDetails> findAll() {
@@ -26,6 +27,14 @@ public class FlightService {
 
     public FlightDetails find(Long id) {
         return findById(id);
+    }
+
+    public FlightDetails findByRoute(Long flightAddressFromId, Long flightAddressToId) {
+        FlightAddress from = flightAddressService.find(flightAddressFromId);
+        FlightAddress to = flightAddressService.find(flightAddressToId);
+        return flightsRepository.findByFlightFromAndFlightTo(from, to)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Flight not found from %s to %s", from, to)));
     }
 
     public FlightDetails create(FlightDetails flightDetails, Long flightAddressFromId, Long flightAddressToId) {

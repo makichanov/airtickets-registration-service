@@ -44,7 +44,6 @@ public class AppConfig {
         return conversionServiceFactoryBean;
     }
 
-    //TODO: почему именно BCrypt? Не меняй, просто ответь мотивацию использовать именно такой энкодер
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

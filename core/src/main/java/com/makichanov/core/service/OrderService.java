@@ -26,6 +26,7 @@ public class OrderService {
     private final AirTicketRepository ticketRepository;
     private final FlightRepository flightRepository;
     private final FlightAddressRepository flightAddressRepository;
+    private final FlightService flightService;
     private final AirTicketFactory airTicketFactory;
 
     public Order find(Long id) {
@@ -45,9 +46,7 @@ public class OrderService {
         List<AirTicket> airTickets = new ArrayList<>();
 
         for (RouteDto r : routes) {
-            FlightAddress from = findFlightAddressById(r.getFlightFromId());
-            FlightAddress to = findFlightAddressById(r.getFlightToId());
-            FlightDetails flightDetails = findFlightByRoute(from, to);
+            FlightDetails flightDetails = flightService.findByRoute(r.getFlightFromId(), r.getFlightToId());
 
             for (int i = 0; i < r.getTicketsCount(); i++) {
                 flightDetails.incrementPlacesSold();
@@ -79,12 +78,6 @@ public class OrderService {
     private Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Order not found, requested id " + id));
-    }
-
-    private FlightDetails findFlightByRoute(FlightAddress from, FlightAddress to) {
-        return flightRepository.findByFlightFromAndFlightTo(from, to)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        String.format("Flight not found from %s to %s", from, to)));
     }
 
     private FlightAddress findFlightAddressById(Long id) {

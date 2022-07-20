@@ -5,11 +5,13 @@ import com.makichanov.core.model.response.OrderDto;
 import com.makichanov.core.entity.Order;
 import com.makichanov.core.service.OrderService;
 import com.makichanov.core.util.converter.ConversionUtils;
+import com.makichanov.core.validator.OrderPlacesValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,6 +23,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final ConversionService conversionService;
+    private final OrderPlacesValidator orderPlacesValidator;
+
+    @InitBinder("createOrderRequestDto")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(orderPlacesValidator);
+    }
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> readAll(@RequestParam(required = false) Long userId) {
@@ -39,8 +47,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDto> create(@RequestBody @Valid CreateOrderRequestDto dto) {
-        Order order = orderService.create(dto.getRoutes());
+    public ResponseEntity<OrderDto> create(@RequestBody @Valid CreateOrderRequestDto orderRequest) {
+        Order order = orderService.create(orderRequest.getRoutes());
 
         return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.CREATED);
     }
