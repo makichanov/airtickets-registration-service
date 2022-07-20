@@ -5,6 +5,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -12,19 +15,20 @@ import java.time.LocalDateTime;
 @Schema(description = "Dto for creating airticket entity")
 public class CreateAirTicketRequestDto {
 
-    @Schema(description = "Plane number")
-    private String planeNumber;
-
     @Schema(description = "Ticket price in dollars")
+    @Positive(message = "Price cannot be negative")
     private Double price;
 
     @Schema(description = "Ticket place in plane")
+    @Positive(message = "Place cannot be negative")
     private Integer place;
 
     @Schema(description = "Flight departure time")
+    @Future(message = "Ticket cannot be ordered for past time")
     private LocalDateTime departureTime;
 
     @Schema(description = "Flight arrival time")
+    @Future(message = "Ticket cannot be ordered for past time")
     private LocalDateTime arrivalTime;
 
     @Schema(description = "Departure address")

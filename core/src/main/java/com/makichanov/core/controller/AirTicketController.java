@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class AirTicketController {
 
     @GetMapping
     @Operation(summary = "Read all tickets", description = "Returns all tickets from database")
-    public ResponseEntity<List<AirTicketDto>> read() {
+    public ResponseEntity<List<AirTicketDto>> readAll() {
         List<AirTicket> airTickets = airTicketService.findAll();
 
         return new ResponseEntity<>(ConversionUtils.toAirTicketDtoList(airTickets), HttpStatus.OK);
@@ -48,7 +49,7 @@ public class AirTicketController {
     @Operation(summary = "Create airticket", description = """
             Creates ticket in database, returns created ticket
             """)
-    public ResponseEntity<AirTicketDto> create(@RequestBody CreateAirTicketRequestDto dto) {
+    public ResponseEntity<AirTicketDto> create(@RequestBody @Valid CreateAirTicketRequestDto dto) {
         AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
 
         AirTicket created = airTicketService.create(airTicket);
@@ -57,7 +58,8 @@ public class AirTicketController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<AirTicketDto> update(@PathVariable Long id, @RequestBody UpdateAirTicketRequestDto dto) {
+    public ResponseEntity<AirTicketDto> update(@PathVariable Long id,
+                                               @RequestBody @Valid UpdateAirTicketRequestDto dto) {
         AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
         AirTicket updated = airTicketService.update(id, airTicket);
 

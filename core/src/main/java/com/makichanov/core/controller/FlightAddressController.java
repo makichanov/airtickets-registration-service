@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class FlightAddressController {
     private final ConversionService conversionService;
 
     @GetMapping
-    public ResponseEntity<List<FlightAddressDto>> read() {
+    public ResponseEntity<List<FlightAddressDto>> readAll() {
         List<FlightAddress> flightAddresses = flightAddressService.findAll();
 
         return new ResponseEntity<>(ConversionUtils.toFlightAddressDtoList(flightAddresses), HttpStatus.OK);
@@ -37,7 +38,7 @@ public class FlightAddressController {
     }
 
     @PostMapping
-    public ResponseEntity<FlightAddressDto> create(@RequestBody CreateFlightAddressRequestDto dto) {
+    public ResponseEntity<FlightAddressDto> create(@RequestBody @Valid CreateFlightAddressRequestDto dto) {
         FlightAddress flightAddress = conversionService.convert(dto, FlightAddress.class);
 
         FlightAddress created = flightAddressService.create(flightAddress);
@@ -48,7 +49,7 @@ public class FlightAddressController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<FlightAddressDto> update(@PathVariable Long id,
-                                                   @RequestBody UpdateFlightAddressRequestDto dto) {
+                                                   @RequestBody @Valid UpdateFlightAddressRequestDto dto) {
         FlightAddress flightAddress = conversionService.convert(dto, FlightAddress.class);
 
         FlightAddress updated = flightAddressService.update(id, flightAddress);

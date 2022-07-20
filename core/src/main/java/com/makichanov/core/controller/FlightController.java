@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class FlightController {
     private final ConversionService conversionService;
 
     @GetMapping
-    public ResponseEntity<List<FlightDetailsDto>> read() {
+    public ResponseEntity<List<FlightDetailsDto>> readAll() {
         List<FlightDetails> flightDetails = flightService.findAll();
 
         return new ResponseEntity<>(ConversionUtils.toFlightDetailsDtoList(flightDetails), HttpStatus.OK);
@@ -37,7 +38,7 @@ public class FlightController {
     }
 
     @PostMapping
-    public ResponseEntity<FlightDetailsDto> create(@RequestBody CreateFlightDetailsRequestDto dto) {
+    public ResponseEntity<FlightDetailsDto> create(@RequestBody @Valid CreateFlightDetailsRequestDto dto) {
         FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class);
 
         FlightDetails created = flightService.create(flightDetails, dto.getFlightFromId(), dto.getFlightToId());
@@ -47,7 +48,7 @@ public class FlightController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<FlightDetailsDto> update(@PathVariable Long id,
-                                                   @RequestBody UpdateFlightDetailsRequestDto dto) {
+                                                   @RequestBody @Valid UpdateFlightDetailsRequestDto dto) {
         FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class);
 
         FlightDetails updated = flightService.update(id, flightDetails, dto.getFlightFromId(), dto.getFlightToId());

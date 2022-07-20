@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class AuthenticationController {
@@ -21,14 +23,14 @@ public class AuthenticationController {
     private final ConversionService conversionService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthenticateRequestDto authenticatingDto) {
+    public ResponseEntity<String> login(@RequestBody @Valid AuthenticateRequestDto authenticatingDto) {
         String token = authenticationService.authenticate(authenticatingDto.getUsername(), authenticatingDto.getPassword());
 
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> signup(@RequestBody AuthenticateRequestDto authenticateRequestDto) {
+    public ResponseEntity<UserDto> signup(@RequestBody @Valid AuthenticateRequestDto authenticateRequestDto) {
         User user = conversionService.convert(authenticateRequestDto, User.class);
         User created = userService.create(user);
 

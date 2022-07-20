@@ -12,6 +12,7 @@ public class AuthenticateDtoToUserConverter implements Converter<AuthenticateReq
     public User convert(AuthenticateRequestDto source) {
         User user = new User();
         user.setUsername(source.getUsername());
+        user.setPassword(source.getPassword());
         return user;
     }
 

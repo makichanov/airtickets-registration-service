@@ -9,6 +9,7 @@ public class UpdateUserRequestDtoToUserConverter implements Converter<UpdateUser
     public User convert(UpdateUserRequestDto source) {
         User user = new User();
         user.setUsername(source.getUsername());
+        user.setPassword(source.getPassword());
         return user;
     }
 }

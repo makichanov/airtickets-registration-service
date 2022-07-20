@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +39,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDto> create(@RequestBody CreateOrderRequestDto dto) {
+    public ResponseEntity<OrderDto> create(@RequestBody @Valid CreateOrderRequestDto dto) {
         Order order = orderService.create(dto.getRoutes());
 
         return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.CREATED);
