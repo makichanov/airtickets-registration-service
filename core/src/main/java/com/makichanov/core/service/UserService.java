@@ -38,6 +38,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User update(Long id, User updated) {
+        User user = findById(id);
+
+        user.setUsername(updated.getUsername());
+        user.setPassword(
+                passwordEncoder.encode(
+                        updated.getPassword()));
+
+        return user;
+    }
+
     public User delete(Long id) {
         User user = findById(id);
         userRepository.delete(user);

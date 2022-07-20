@@ -4,9 +4,7 @@ import com.makichanov.core.model.request.CreateAirTicketRequestDto;
 import com.makichanov.core.entity.AirTicket;
 import org.springframework.core.convert.converter.Converter;
 
-import java.util.concurrent.TimeUnit;
-
-public class CreatingAirTicketToAirTicketConverter implements Converter<CreateAirTicketRequestDto, AirTicket> {
+public class CreateAirTicketDtoToAirTicketConverter implements Converter<CreateAirTicketRequestDto, AirTicket> {
 
     @Override
     public AirTicket convert(CreateAirTicketRequestDto source) {

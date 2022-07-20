@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 
 @RequiredArgsConstructor
-public class AuthenticatingDtoToUserConverter implements Converter<AuthenticateRequestDto, User> {
+public class AuthenticateDtoToUserConverter implements Converter<AuthenticateRequestDto, User> {
 
     @Override
     public User convert(AuthenticateRequestDto source) {

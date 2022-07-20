@@ -48,7 +48,7 @@ public class FlightController {
     @PatchMapping("/{id}")
     public ResponseEntity<FlightDetailsDto> update(@PathVariable Long id,
                                                    @RequestBody UpdateFlightDetailsRequestDto dto) {
-        FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class); // TODO converter
+        FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class);
 
         FlightDetails updated = flightService.update(id, flightDetails, dto.getFlightFromId(), dto.getFlightToId());
 

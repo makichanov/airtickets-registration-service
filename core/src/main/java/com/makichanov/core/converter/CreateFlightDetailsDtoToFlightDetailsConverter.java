@@ -4,7 +4,7 @@ import com.makichanov.core.model.request.CreateFlightDetailsRequestDto;
 import com.makichanov.core.entity.FlightDetails;
 import org.springframework.core.convert.converter.Converter;
 
-public class CreatingFlightDetailsDtoToFlightDetailsConverter
+public class CreateFlightDetailsDtoToFlightDetailsConverter
         implements Converter<CreateFlightDetailsRequestDto, FlightDetails> {
 
     @Override

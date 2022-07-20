@@ -28,7 +28,6 @@ public class FlightService {
         return findById(id);
     }
 
-    // TODO add flightAddress(From/To)Id to entity and mark them transient
     public FlightDetails create(FlightDetails flightDetails, Long flightAddressFromId, Long flightAddressToId) {
         FlightAddress from = findFlightAddress(flightAddressFromId);
         FlightAddress to = findFlightAddress(flightAddressToId);
@@ -38,7 +37,6 @@ public class FlightService {
         return flightsRepository.save(flightDetails);
     }
 
-    // TODO add flightAddress(From/To)Id to entity and mark them transient
     public FlightDetails update(Long id, FlightDetails updated, Long flightAddressFromId, Long flightAddressToId) {
         FlightDetails flightDetails = findById(id);
         FlightAddress flightAddressFrom = findFlightAddress(flightAddressFromId);

@@ -31,7 +31,6 @@ public class FlightAddressService {
 
     @Transactional
     public FlightAddress update(Long id, FlightAddress updated) {
-        // TODO converter
         FlightAddress flightAddress = findById(id);
 
         flightAddress.setAirportAddress(updated.getAirportAddress());

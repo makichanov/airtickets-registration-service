@@ -35,8 +35,6 @@ public class User implements UserDetails {
     @JoinColumn(name = "role", nullable = false)
     private Role role;
 
-    //TODO: 7/14/22 Hardcode
-    // Pochemu
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(role);

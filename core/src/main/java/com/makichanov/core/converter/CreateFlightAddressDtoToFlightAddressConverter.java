@@ -4,7 +4,7 @@ import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
 import com.makichanov.core.entity.FlightAddress;
 import org.springframework.core.convert.converter.Converter;
 
-public class CreatingFlightAddressDtoToFlightAddressConverter
+public class CreateFlightAddressDtoToFlightAddressConverter
         implements Converter<CreateFlightAddressRequestDto, FlightAddress> {
     @Override
     public FlightAddress convert(CreateFlightAddressRequestDto source) {

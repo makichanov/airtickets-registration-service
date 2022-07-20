@@ -58,7 +58,7 @@ public class AirTicketController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<AirTicketDto> update(@PathVariable Long id, @RequestBody UpdateAirTicketRequestDto dto) {
-        AirTicket airTicket = conversionService.convert(dto, AirTicket.class); // TODO converter
+        AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
         AirTicket updated = airTicketService.update(id, airTicket);
 
         return new ResponseEntity<>(conversionService.convert(updated, AirTicketDto.class), HttpStatus.OK);
