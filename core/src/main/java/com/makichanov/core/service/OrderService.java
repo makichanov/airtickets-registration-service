@@ -6,7 +6,6 @@ import com.makichanov.core.entity.FlightDetails;
 import com.makichanov.core.entity.Order;
 import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.factory.AirTicketFactory;
-import com.makichanov.core.model.request.CreateOrderRequestDto;
 import com.makichanov.core.model.request.RouteDto;
 import com.makichanov.core.repository.AirTicketRepository;
 import com.makichanov.core.repository.FlightAddressRepository;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +41,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order create(List<RouteDto> routes) {
+    public Order create(Set<RouteDto> routes) {
         List<AirTicket> airTickets = new ArrayList<>();
 
         for (RouteDto r : routes) {
@@ -49,18 +49,15 @@ public class OrderService {
             FlightAddress to = findFlightAddressById(r.getFlightToId());
             FlightDetails flightDetails = findFlightByRoute(from, to);
 
-            if (flightDetails.getPlacesSold().equals(flightDetails.getMaxPlaces())) {
-                // TODO tickets count validator
+            for (int i = 0; i < r.getTicketsCount(); i++) {
+                flightDetails.incrementPlacesSold();
+
+                AirTicket airTicket = airTicketFactory.createAirTicket(flightDetails);
+                airTickets.add(airTicket);
             }
-
-            flightDetails.incrementPlacesSold();
-
-            AirTicket airTicket = airTicketFactory.createAirTicket(flightDetails);
-            airTickets.add(airTicket);
 
             flightRepository.updatePlacesSold(flightDetails.getPlacesSold(), flightDetails.getId());
         }
-
         Long totalPrice = countTotalPrice(airTickets);
 
         ticketRepository.saveAll(airTickets);

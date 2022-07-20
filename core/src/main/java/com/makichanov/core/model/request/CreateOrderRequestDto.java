@@ -3,10 +3,11 @@ package com.makichanov.core.model.request;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class CreateOrderRequestDto {
 
-    private List<RouteDto> routes;
+    private Set<RouteDto> routes;
 
 }

@@ -14,4 +14,6 @@ public class RouteDto {
     @Positive(message = "Id value is always positive")
     private Long flightToId;
 
+    private Long ticketsCount;
+
 }
