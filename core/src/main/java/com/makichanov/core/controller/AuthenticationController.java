@@ -22,15 +22,16 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AuthenticateRequestDto authenticatingDto) {
-        String token = authenticationService.authenticate(authenticatingDto);
+        String token = authenticationService.authenticate(authenticatingDto.getUsername(), authenticatingDto.getPassword());
 
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<UserDto> signup(@RequestBody AuthenticateRequestDto authenticateRequestDto) {
-        User user = userService.create(authenticateRequestDto);
+        User user = conversionService.convert(authenticateRequestDto, User.class);
+        User created = userService.create(user);
 
-        return new ResponseEntity<>(conversionService.convert(user, UserDto.class), HttpStatus.CREATED);
+        return new ResponseEntity<>(conversionService.convert(created, UserDto.class), HttpStatus.CREATED);
     }
 }

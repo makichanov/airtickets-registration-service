@@ -49,16 +49,19 @@ public class AirTicketController {
             Creates ticket in database, returns created ticket
             """)
     public ResponseEntity<AirTicketDto> create(@RequestBody CreateAirTicketRequestDto dto) {
-        AirTicket airTicket = airTicketService.create(dto);
+        AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
 
-        return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.CREATED);
+        AirTicket created = airTicketService.create(airTicket);
+
+        return new ResponseEntity<>(conversionService.convert(created, AirTicketDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<AirTicketDto> update(@PathVariable Long id, @RequestBody UpdateAirTicketRequestDto dto) {
-        AirTicket airTicket = airTicketService.update(id, dto);
+        AirTicket airTicket = conversionService.convert(dto, AirTicket.class); // TODO converter
+        AirTicket updated = airTicketService.update(id, airTicket);
 
-        return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.OK);
+        return new ResponseEntity<>(conversionService.convert(updated, AirTicketDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

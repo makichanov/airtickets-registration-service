@@ -1,4 +1,4 @@
-package com.makichanov.core.service.impl;
+package com.makichanov.core.service;
 
 import com.makichanov.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

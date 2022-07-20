@@ -38,17 +38,21 @@ public class FlightController {
 
     @PostMapping
     public ResponseEntity<FlightDetailsDto> create(@RequestBody CreateFlightDetailsRequestDto dto) {
-        FlightDetails flightDetails = flightService.create(dto);
+        FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class);
 
-        return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.CREATED);
+        FlightDetails created = flightService.create(flightDetails, dto.getFlightFromId(), dto.getFlightToId());
+
+        return new ResponseEntity<>(conversionService.convert(created, FlightDetailsDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<FlightDetailsDto> update(@PathVariable Long id,
                                                    @RequestBody UpdateFlightDetailsRequestDto dto) {
-        FlightDetails flightDetails = flightService.update(id, dto);
+        FlightDetails flightDetails = conversionService.convert(dto, FlightDetails.class); // TODO converter
 
-        return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.OK);
+        FlightDetails updated = flightService.update(id, flightDetails, dto.getFlightFromId(), dto.getFlightToId());
+
+        return new ResponseEntity<>(conversionService.convert(updated, FlightDetailsDto.class), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
