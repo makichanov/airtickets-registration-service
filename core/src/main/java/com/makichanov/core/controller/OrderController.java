@@ -15,6 +15,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,12 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderDto>> readAll(@RequestParam(required = false) Long userId) {
+    public ResponseEntity<List<OrderDto>> readAll(
+            @RequestParam(required = false) Long userId,
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Positive Long pageNum,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
         List<Order> orders = userId == null
-                ? orderService.findAll()
+                ? orderService.findAll(pageNum, pageSize)
                 : orderService.findByUserId(userId);
 
         return new ResponseEntity<>(ConversionUtils.toOrdersDtoList(orders), HttpStatus.OK);

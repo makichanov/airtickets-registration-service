@@ -8,6 +8,8 @@ import com.makichanov.core.model.request.UpdateAirTicketRequestDto;
 import com.makichanov.core.repository.AirTicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +24,10 @@ public class AirTicketService {
         return findById(id);
     }
 
-    public List<AirTicket> findAll() {
-        return repository.findAll();
+    public List<AirTicket> findAll(Long pageNum, Long pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
+        return repository.findAll(pageRequest)
+                .getContent();
     }
 
     public AirTicket create(AirTicket airTicket) {

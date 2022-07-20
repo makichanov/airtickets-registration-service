@@ -6,9 +6,11 @@ import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.repository.RoleRepository;
 import com.makichanov.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Service
@@ -23,8 +25,10 @@ public class UserService {
         return findById(id);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<User> findAll(@Positive Long pageNum, @Positive Long pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
+        return userRepository.findAll(pageRequest)
+                .getContent();
     }
 
     public User create(User user) {

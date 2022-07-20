@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,10 @@ public class FlightAddressController {
     private final ConversionService conversionService;
 
     @GetMapping
-    public ResponseEntity<List<FlightAddressDto>> readAll() {
-        List<FlightAddress> flightAddresses = flightAddressService.findAll();
+    public ResponseEntity<List<FlightAddressDto>> readAll(
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Positive Long pageNum,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
+        List<FlightAddress> flightAddresses = flightAddressService.findAll(pageNum, pageSize);
 
         return new ResponseEntity<>(ConversionUtils.toFlightAddressDtoList(flightAddresses), HttpStatus.OK);
     }

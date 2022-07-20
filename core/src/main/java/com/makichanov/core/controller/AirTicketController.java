@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -28,8 +29,10 @@ public class AirTicketController {
 
     @GetMapping
     @Operation(summary = "Read all tickets", description = "Returns all tickets from database")
-    public ResponseEntity<List<AirTicketDto>> readAll() {
-        List<AirTicket> airTickets = airTicketService.findAll();
+    public ResponseEntity<List<AirTicketDto>> readAll(
+            @RequestParam(name = "page", required = false, defaultValue = "0") @Positive Long pageNum,
+            @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
+        List<AirTicket> airTickets = airTicketService.findAll(pageNum, pageSize);
 
         return new ResponseEntity<>(ConversionUtils.toAirTicketDtoList(airTickets), HttpStatus.OK);
     }

@@ -12,9 +12,11 @@ import com.makichanov.core.repository.FlightAddressRepository;
 import com.makichanov.core.repository.FlightRepository;
 import com.makichanov.core.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -33,8 +35,10 @@ public class OrderService {
         return findById(id);
     }
 
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+    public List<Order> findAll(@Positive Long pageNum, @Positive Long pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
+        return orderRepository.findAll(pageRequest)
+                .getContent();
     }
 
     public List<Order> findByUserId(Long userId) {

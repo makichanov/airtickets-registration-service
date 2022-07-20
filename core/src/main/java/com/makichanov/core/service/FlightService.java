@@ -2,15 +2,14 @@ package com.makichanov.core.service;
 
 import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.request.CreateFlightDetailsRequestDto;
 import com.makichanov.core.entity.FlightDetails;
-import com.makichanov.core.model.request.UpdateFlightDetailsRequestDto;
 import com.makichanov.core.repository.FlightAddressRepository;
 import com.makichanov.core.repository.FlightRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.convert.ConversionService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +20,10 @@ public class FlightService {
     private final FlightAddressService flightAddressService;
     private final FlightAddressRepository flightAddressRepository;
 
-    public List<FlightDetails> findAll() {
-        return flightsRepository.findAll();
+    public List<FlightDetails> findAll(@Positive Long pageNum, @Positive Long pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
+        return flightsRepository.findAll(pageRequest)
+                .getContent();
     }
 
     public FlightDetails find(Long id) {
