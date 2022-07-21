@@ -6,7 +6,7 @@ import com.makichanov.core.entity.FlightDetails;
 import com.makichanov.core.entity.Order;
 import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.factory.AirTicketFactory;
-import com.makichanov.core.model.request.RouteDto;
+import com.makichanov.core.model.request.Route;
 import com.makichanov.core.repository.AirTicketRepository;
 import com.makichanov.core.repository.FlightAddressRepository;
 import com.makichanov.core.repository.FlightRepository;
@@ -46,10 +46,10 @@ public class OrderService {
     }
 
     @Transactional
-    public Order create(Set<RouteDto> routes) {
+    public Order create(Set<Route> routes) {
         List<AirTicket> airTickets = new ArrayList<>();
 
-        for (RouteDto r : routes) {
+        for (Route r : routes) {
             FlightDetails flightDetails = flightService.findByRoute(r.getFlightFromId(), r.getFlightToId());
 
             for (int i = 0; i < r.getTicketsCount(); i++) {

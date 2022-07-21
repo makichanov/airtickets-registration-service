@@ -1,14 +1,14 @@
 package com.makichanov.core.converter;
 
-import com.makichanov.core.model.request.CreateFlightDetailsRequestDto;
+import com.makichanov.core.model.request.CreateFlightDetailsRequest;
 import com.makichanov.core.entity.FlightDetails;
 import org.springframework.core.convert.converter.Converter;
 
 public class CreateFlightDetailsDtoToFlightDetailsConverter
-        implements Converter<CreateFlightDetailsRequestDto, FlightDetails> {
+        implements Converter<CreateFlightDetailsRequest, FlightDetails> {
 
     @Override
-    public FlightDetails convert(CreateFlightDetailsRequestDto source) {
+    public FlightDetails convert(CreateFlightDetailsRequest source) {
         FlightDetails flightDetails = new FlightDetails();
         flightDetails.setDepartureTime(source.getDepartureTime());
         flightDetails.setArrivalTime(source.getArrivalTime());

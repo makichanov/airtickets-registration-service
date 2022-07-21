@@ -1,8 +1,8 @@
 package com.makichanov.core.controller;
 
-import com.makichanov.core.model.request.UpdateAirTicketRequestDto;
+import com.makichanov.core.model.request.UpdateAirTicketRequest;
 import com.makichanov.core.model.response.AirTicketDto;
-import com.makichanov.core.model.request.CreateAirTicketRequestDto;
+import com.makichanov.core.model.request.CreateAirTicketRequest;
 import com.makichanov.core.entity.AirTicket;
 import com.makichanov.core.service.AirTicketService;
 import com.makichanov.core.util.converter.ConversionUtils;
@@ -52,7 +52,7 @@ public class AirTicketController {
     @Operation(summary = "Create airticket", description = """
             Creates ticket in database, returns created ticket
             """)
-    public ResponseEntity<AirTicketDto> create(@RequestBody @Valid CreateAirTicketRequestDto dto) {
+    public ResponseEntity<AirTicketDto> create(@RequestBody @Valid CreateAirTicketRequest dto) {
         AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
 
         AirTicket created = airTicketService.create(airTicket);
@@ -61,8 +61,11 @@ public class AirTicketController {
     }
 
     @PatchMapping("/{id}")
+    @Operation(summary = "Update airticket", description = """
+            Update airticket data, returns updated entity
+            """)
     public ResponseEntity<AirTicketDto> update(@PathVariable Long id,
-                                               @RequestBody @Valid UpdateAirTicketRequestDto dto) {
+                                               @RequestBody @Valid UpdateAirTicketRequest dto) {
         AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
         AirTicket updated = airTicketService.update(id, airTicket);
 

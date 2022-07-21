@@ -1,11 +1,13 @@
 package com.makichanov.core.controller;
 
-import com.makichanov.core.model.request.CreateFlightAddressRequestDto;
-import com.makichanov.core.model.request.UpdateFlightAddressRequestDto;
+import com.makichanov.core.model.request.CreateFlightAddressRequest;
+import com.makichanov.core.model.request.UpdateFlightAddressRequest;
 import com.makichanov.core.model.response.FlightAddressDto;
 import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.service.FlightAddressService;
 import com.makichanov.core.util.converter.ConversionUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
@@ -20,11 +22,14 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/destinations", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@Tag(name = "Flight address controller", description = "CRUD operations for FlightAddress entity")
 public class FlightAddressController {
     private final FlightAddressService flightAddressService;
     private final ConversionService conversionService;
 
     @GetMapping
+    @Operation(summary = "Read all flight addresses", description = """
+            Returns all addresses which may be used as departure or destination addresses""")
     public ResponseEntity<List<FlightAddressDto>> readAll(
             @RequestParam(name = "page", required = false, defaultValue = "0") @Positive Long pageNum,
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
@@ -34,6 +39,8 @@ public class FlightAddressController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Read flight addresses by id", description = """
+            Returns address by its id which may be used as departure or destination addresses""")
     public ResponseEntity<FlightAddressDto> read(@PathVariable Long id) {
         FlightAddress flightAddress = flightAddressService.find(id);
 
@@ -41,7 +48,8 @@ public class FlightAddressController {
     }
 
     @PostMapping
-    public ResponseEntity<FlightAddressDto> create(@RequestBody @Valid CreateFlightAddressRequestDto dto) {
+    @Operation(summary = "Create flight addresses", description = "Returns created flight address")
+    public ResponseEntity<FlightAddressDto> create(@RequestBody @Valid CreateFlightAddressRequest dto) {
         FlightAddress flightAddress = conversionService.convert(dto, FlightAddress.class);
 
         FlightAddress created = flightAddressService.create(flightAddress);
@@ -51,8 +59,9 @@ public class FlightAddressController {
     }
 
     @PatchMapping("/{id}")
+    @Operation(summary = "Update flight address by id", description = "Updates flight address and returns updated entity")
     public ResponseEntity<FlightAddressDto> update(@PathVariable Long id,
-                                                   @RequestBody @Valid UpdateFlightAddressRequestDto dto) {
+                                                   @RequestBody @Valid UpdateFlightAddressRequest dto) {
         FlightAddress flightAddress = conversionService.convert(dto, FlightAddress.class);
 
         FlightAddress updated = flightAddressService.update(id, flightAddress);
@@ -61,6 +70,7 @@ public class FlightAddressController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete flight address by id", description = "Deletes flight address and returns deleted entity")
     public ResponseEntity<FlightAddressDto> delete(@PathVariable Long id) {
         FlightAddress flightAddress = flightAddressService.delete(id);
 

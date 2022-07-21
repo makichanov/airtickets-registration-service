@@ -1,8 +1,8 @@
 package com.makichanov.core.validator;
 
 import com.makichanov.core.entity.FlightDetails;
-import com.makichanov.core.model.request.CreateOrderRequestDto;
-import com.makichanov.core.model.request.RouteDto;
+import com.makichanov.core.model.request.CreateOrderRequest;
+import com.makichanov.core.model.request.Route;
 import com.makichanov.core.service.FlightService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,14 +16,14 @@ public class OrderPlacesValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return CreateOrderRequestDto.class.equals(clazz);
+        return CreateOrderRequest.class.equals(clazz);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        CreateOrderRequestDto dto = (CreateOrderRequestDto) target;
+        CreateOrderRequest dto = (CreateOrderRequest) target;
 
-        for (RouteDto r : dto.getRoutes()) {
+        for (Route r : dto.getRoutes()) {
             FlightDetails flightDetails = flightService.findByRoute(r.getFlightFromId(), r.getFlightToId());
             long placesToBeSold = flightDetails.getPlacesSold() + r.getTicketsCount();
 

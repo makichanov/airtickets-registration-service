@@ -2,18 +2,15 @@ package com.makichanov.core.model.request;
 
 import com.makichanov.core.model.response.FlightAddressDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
 @Schema(description = "Dto for creating airticket entity")
-public class CreateAirTicketRequestDto {
+public class CreateAirTicketRequest {
 
     @Schema(description = "Ticket price in dollars")
     @Positive(message = "Price cannot be negative")

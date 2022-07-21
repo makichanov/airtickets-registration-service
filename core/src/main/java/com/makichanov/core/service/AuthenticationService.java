@@ -1,6 +1,5 @@
 package com.makichanov.core.service;
 
-import com.makichanov.core.model.request.AuthenticateRequestDto;
 import com.makichanov.core.util.security.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

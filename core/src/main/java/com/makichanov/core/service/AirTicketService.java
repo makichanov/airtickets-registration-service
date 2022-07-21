@@ -2,13 +2,9 @@ package com.makichanov.core.service;
 
 
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.model.request.CreateAirTicketRequestDto;
 import com.makichanov.core.entity.AirTicket;
-import com.makichanov.core.model.request.UpdateAirTicketRequestDto;
 import com.makichanov.core.repository.AirTicketRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
