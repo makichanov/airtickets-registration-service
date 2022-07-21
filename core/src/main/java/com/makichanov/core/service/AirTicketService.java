@@ -30,6 +30,10 @@ public class AirTicketService {
         return repository.save(airTicket);
     }
 
+    public List<AirTicket> createAll(List<AirTicket> airTickets) {
+        return repository.saveAll(airTickets);
+    }
+
     @Transactional
     public AirTicket update(Long id, AirTicket updated) {
         AirTicket airTicket = findById(id);

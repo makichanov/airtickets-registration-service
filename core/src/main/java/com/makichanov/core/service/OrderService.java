@@ -1,15 +1,11 @@
 package com.makichanov.core.service;
 
 import com.makichanov.core.entity.AirTicket;
-import com.makichanov.core.entity.FlightAddress;
 import com.makichanov.core.entity.FlightDetails;
 import com.makichanov.core.entity.Order;
 import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.factory.AirTicketFactory;
 import com.makichanov.core.model.request.Route;
-import com.makichanov.core.repository.AirTicketRepository;
-import com.makichanov.core.repository.FlightAddressRepository;
-import com.makichanov.core.repository.FlightRepository;
 import com.makichanov.core.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -25,9 +21,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final AirTicketRepository ticketRepository;
-    private final FlightRepository flightRepository;
-    private final FlightAddressRepository flightAddressRepository;
+    private final AirTicketService ticketService;
     private final FlightService flightService;
     private final AirTicketFactory airTicketFactory;
 
@@ -59,11 +53,11 @@ public class OrderService {
                 airTickets.add(airTicket);
             }
 
-            flightRepository.updatePlacesSold(flightDetails.getPlacesSold(), flightDetails.getId());
+            flightService.updateSoldPlaces(flightDetails.getId(), flightDetails.getPlacesSold());
         }
         Long totalPrice = countTotalPrice(airTickets);
 
-        ticketRepository.saveAll(airTickets);
+        ticketService.createAll(airTickets);
 
         Order order = new Order();
         order.setAirTickets(airTickets);
@@ -82,11 +76,6 @@ public class OrderService {
     private Order findById(Long id) {
         return orderRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Order not found, requested id " + id));
-    }
-
-    private FlightAddress findFlightAddressById(Long id) {
-        return flightAddressRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Flight address not found, id " + id));
     }
 
     private Long countTotalPrice(List<AirTicket> airTickets) {

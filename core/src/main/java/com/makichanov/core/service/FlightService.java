@@ -18,7 +18,6 @@ import java.util.Optional;
 public class FlightService {
     private final FlightRepository flightsRepository;
     private final FlightAddressService flightAddressService;
-    private final FlightAddressRepository flightAddressRepository;
 
     public List<FlightDetails> findAll(@Positive Long pageNum, @Positive Long pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
@@ -39,8 +38,8 @@ public class FlightService {
     }
 
     public FlightDetails create(FlightDetails flightDetails, Long flightAddressFromId, Long flightAddressToId) {
-        FlightAddress from = findFlightAddress(flightAddressFromId);
-        FlightAddress to = findFlightAddress(flightAddressToId);
+        FlightAddress from = flightAddressService.find(flightAddressFromId);
+        FlightAddress to = flightAddressService.find(flightAddressToId);
 
         flightDetails.setFlightFrom(from);
         flightDetails.setFlightTo(to);
@@ -49,8 +48,8 @@ public class FlightService {
 
     public FlightDetails update(Long id, FlightDetails updated, Long flightAddressFromId, Long flightAddressToId) {
         FlightDetails flightDetails = findById(id);
-        FlightAddress flightAddressFrom = findFlightAddress(flightAddressFromId);
-        FlightAddress flightAddressTo = findFlightAddress(flightAddressToId);
+        FlightAddress flightAddressFrom = flightAddressService.find(flightAddressFromId);
+        FlightAddress flightAddressTo = flightAddressService.find(flightAddressToId);
 
         flightDetails.setDepartureTime(updated.getDepartureTime());
         flightDetails.setArrivalTime(updated.getArrivalTime());
@@ -63,6 +62,10 @@ public class FlightService {
         return flightDetails;
     }
 
+    public void updateSoldPlaces(Long id, Integer newPlacesNumber) {
+        flightsRepository.updateSoldPlaces(id, newPlacesNumber);
+    }
+
     public FlightDetails delete(Long id) {
         FlightDetails flightDetails = findById(id);
         flightsRepository.delete(flightDetails);
@@ -70,14 +73,7 @@ public class FlightService {
     }
 
     private FlightDetails findById(Long id) {
-        Optional<FlightDetails> flightDetails = flightsRepository.findById(id);
-        return flightDetails.orElseThrow(
-                () -> new EntityNotFoundException("FlightDetails not found, requested id " + id));
-    }
-
-    private FlightAddress findFlightAddress(Long id) {
-        Optional<FlightAddress> flightAddress = flightAddressRepository.findById(id);
-        return flightAddress.orElseThrow(
-                () -> new EntityNotFoundException("FlightDetails not found, requested id " + id));
+        return flightsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("FlightDetails not found, requested id " + id));
     }
 }
