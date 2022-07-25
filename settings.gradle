@@ -1,4 +1,4 @@
 rootProject.name = 'airtickets-registration-system'
 include 'core'
 include 'audit'
-
+include 'messaging'

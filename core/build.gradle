@@ -29,6 +29,8 @@ dependencies {
     implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.2.1'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.1'
+    implementation 'org.springframework.boot:spring-boot-starter-activemq'
+    implementation project(':messaging')
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'

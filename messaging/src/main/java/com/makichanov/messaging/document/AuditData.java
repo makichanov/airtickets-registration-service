@@ -1,13 +1,13 @@
-package com.makichanov.audit.document;
+package com.makichanov.messaging.document;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-
 @Document
 @Data
+@Builder
 public class AuditData {
 
     @Id
@@ -15,8 +15,8 @@ public class AuditData {
 
     private String endpoint;
 
-    private LocalDateTime date;
+    private String date;
 
-    private int responseCode;
+    private String responseCode;
 
 }

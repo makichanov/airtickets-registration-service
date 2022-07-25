@@ -1,5 +1,12 @@
 spring:
-  datasource:
-    url: mongodb://localhost:27017
-    username: root
-    password: root
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: root
+      password: root
+      database: ars_db_mongo
+      authentication-database: admin
+
+server:
+  port: 8082

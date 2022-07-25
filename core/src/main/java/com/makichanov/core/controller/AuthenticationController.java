@@ -1,10 +1,12 @@
 package com.makichanov.core.controller;
 
+import com.makichanov.core.messaging.AuditDataMessageSender;
 import com.makichanov.core.model.request.AuthenticateRequest;
 import com.makichanov.core.model.response.UserDto;
 import com.makichanov.core.entity.User;
 import com.makichanov.core.service.AuthenticationService;
 import com.makichanov.core.service.UserService;
+import com.makichanov.messaging.document.AuditData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final UserService userService;
     private final ConversionService conversionService;
+    private final AuditDataMessageSender messageSender;
 
     @PostMapping("/login")
     @Operation(summary = "Authentication", description = """
@@ -31,6 +35,15 @@ public class AuthenticationController {
             """)
     public ResponseEntity<String> login(@RequestBody @Valid AuthenticateRequest authenticatingDto) {
         String token = authenticationService.authenticate(authenticatingDto.getUsername(), authenticatingDto.getPassword());
+
+        /////////////////////////////
+        AuditData auditData = AuditData.builder()
+                .endpoint("/login")
+                .date(LocalDateTime.now().toString())
+                .responseCode(HttpStatus.OK.name())
+                .build();
+        messageSender.sendAuditData(auditData);
+        /////////////////////////////
 
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
