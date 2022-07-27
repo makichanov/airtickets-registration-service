@@ -22,9 +22,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.1'
     implementation 'org.springframework.boot:spring-boot-starter-activemq'
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.1'
+    implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.2.1'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
     implementation project(':messaging')
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

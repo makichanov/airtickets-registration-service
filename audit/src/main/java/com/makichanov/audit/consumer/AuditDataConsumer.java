@@ -17,7 +17,7 @@ public class AuditDataConsumer {
     @JmsListener(destination = "ars-queue")
     public void listener(Message<AuditData> message) {
         AuditData auditData = message.getPayload();
-        log.info(auditData.toString());
-        auditService.create(auditData);
+        AuditData saved = auditService.create(auditData);
+        log.info("Saved audit data {}", saved);
     }
 }
