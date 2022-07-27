@@ -36,15 +36,6 @@ public class AuthenticationController {
     public ResponseEntity<String> login(@RequestBody @Valid AuthenticateRequest authenticatingDto) {
         String token = authenticationService.authenticate(authenticatingDto.getUsername(), authenticatingDto.getPassword());
 
-        /////////////////////////////
-        AuditData auditData = AuditData.builder()
-                .endpoint("/login")
-                .date(LocalDateTime.now().toString())
-                .responseCode(HttpStatus.OK.name())
-                .build();
-        messageSender.sendAuditData(auditData);
-        /////////////////////////////
-
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
