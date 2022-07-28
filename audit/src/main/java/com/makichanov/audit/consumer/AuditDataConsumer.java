@@ -1,6 +1,6 @@
 package com.makichanov.audit.consumer;
 
-import com.makichanov.messaging.document.AuditData;
+import com.makichanov.audit.model.AuditData;
 import com.makichanov.audit.service.AuditService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

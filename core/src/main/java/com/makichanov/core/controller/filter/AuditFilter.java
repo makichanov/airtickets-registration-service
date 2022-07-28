@@ -1,10 +1,8 @@
 package com.makichanov.core.controller.filter;
 
-import com.makichanov.core.entity.User;
 import com.makichanov.core.messaging.AuditDataMessageSender;
-import com.makichanov.messaging.document.AuditData;
+import com.makichanov.core.model.request.AuditData;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 

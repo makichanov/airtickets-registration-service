@@ -1,6 +1,6 @@
 package com.makichanov.audit.service;
 
-import com.makichanov.messaging.document.AuditData;
+import com.makichanov.audit.model.AuditData;
 import com.makichanov.audit.repository.AuditDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

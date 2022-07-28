@@ -1,6 +1,6 @@
 package com.makichanov.core.messaging;
 
-import com.makichanov.messaging.document.AuditData;
+import com.makichanov.core.model.request.AuditData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
