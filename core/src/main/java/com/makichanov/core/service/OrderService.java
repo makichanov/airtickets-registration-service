@@ -39,10 +39,14 @@ public class OrderService {
         return orderRepository.findByUserId(userId);
     }
 
+    // TODO: 7/28/22 я бы убрал бы вообще решение с роутами(почему в create передаются routes?)
     @Transactional
     public Order create(Set<Route> routes) {
         List<AirTicket> airTickets = new ArrayList<>();
 
+        // TODO: 7/28/22 Решение нуждается в рефакторинге. Использовать forEach.
+        //  N^2 сложность не смущает?
+        //  вот тут уже можно подумать о запросе в репу вместо хардкода.
         for (Route r : routes) {
             FlightDetails flightDetails = flightService.findByRoute(r.getFlightFromId(), r.getFlightToId());
 

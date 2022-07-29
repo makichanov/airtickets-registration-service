@@ -12,6 +12,7 @@ public interface FlightRepository extends JpaRepository<FlightDetails, Long> {
 
     Optional<FlightDetails> findByFlightFromAndFlightTo(FlightAddress from, FlightAddress to);
 
+    // TODO: 7/28/22 для такой операции делать query -- too much
     @Query("update FlightDetails set placesSold = ?2 where id = ?1")
     @Modifying
     void updateSoldPlaces(Long id, Integer newPlacesNumber);

@@ -1,3 +1,4 @@
+// TODO: 7/26/22 Разбиение по пакетам. Почему хэндлер лежит в контроллерах? Вынести в отдельный пакет.
 package com.makichanov.core.controller.handler;
 
 import org.springframework.http.HttpStatus;

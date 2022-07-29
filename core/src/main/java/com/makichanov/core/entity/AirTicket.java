@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "air_tickets")
+// TODO: 7/26/22 гляди на подсказки ide. С точки зрения требований не будет ли @Data избыточно?
 @Data
 @NoArgsConstructor
 public class AirTicket {

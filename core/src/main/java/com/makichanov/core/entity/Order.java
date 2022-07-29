@@ -12,6 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+// TODO: 7/26/22 гляди на подсказки ide. С точки зрения требований не будет ли @Data избыточно? Я бы не хранил заказы в бд.
+// TODO: 7/26/22 а какая мотивация делать отдельную сущность под заказ? мб это отдать фронту?
+//     если хочешь, чтобы пачка билетов создавалась транзакционно, пихни в сервис createMany или сделай какой-нибудь batchCreate
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)

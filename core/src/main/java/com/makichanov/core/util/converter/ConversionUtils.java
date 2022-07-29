@@ -7,10 +7,14 @@ import com.makichanov.core.model.response.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class ConversionUtils {
 
+// TODO: 7/28/22 этот функционал можно было бы включить в сами конвертеры либо применить наследование и сделать абстрактный класс для конвертации, а дальше переоперделять.
+//  По итогу при расширении проекта перерастет в очень большой класс. SOLID - SO.
+public final class ConversionUtils {
+    // TODO: 7/28/22 @NoArgsConstructor(access = AccessLevel.PRIVATE)
     private ConversionUtils() {}
 
+    // TODO: 7/28/22 логические блоки разделяем пустыми строками
     public static List<AirTicketDto> toAirTicketDtoList(List<AirTicket> airTickets) {
         var converter = new AirTicketToAirTicketDtoConverter();
         return airTickets.stream()

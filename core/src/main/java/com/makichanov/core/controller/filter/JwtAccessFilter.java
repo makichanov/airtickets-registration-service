@@ -1,3 +1,4 @@
+// TODO: 7/26/22 Разбиение по пакетам. Почему сервлетный фильтр лежит в пакете контроллеров?
 package com.makichanov.core.controller.filter;
 
 import com.makichanov.core.util.security.JwtTokenUtils;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class JwtAccessFilter extends GenericFilter {
     private final UserDetailsService userDetailsService;
 
+    // TODO: 7/26/22 логические блоки разделяем пустыми строками
     @Override
     @Transactional
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws ServletException, IOException {

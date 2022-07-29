@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class EntityNotCreatedException extends RuntimeException {
+    // TODO: 7/26/22 не много ли перегруженных конструкторов, учитывая то, что они не юзаются в большинстве своем?
     public EntityNotCreatedException() {
     }
 

@@ -25,6 +25,7 @@ public class FlightDetailsDto {
     @Schema(description = "Flight base price")
     private Double basePrice;
 
+    // TODO: 7/26/22 хардкодишь, можно просто одну переменную places создать, потом ее инкрементить
     @Schema(description = "Flight max places")
     private Integer maxPlaces;
 

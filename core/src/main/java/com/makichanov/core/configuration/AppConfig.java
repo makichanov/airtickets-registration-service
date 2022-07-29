@@ -21,6 +21,7 @@ import java.util.Set;
 @EnableTransactionManagement
 public class AppConfig {
     //TODO: use MapStruct. Зачем так конфигурировать конвертеры?
+    // TODO: 7/21/22 просил поправить, плохое решение
     @Bean
     public ConversionServiceFactoryBean conversionService() {
         ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();

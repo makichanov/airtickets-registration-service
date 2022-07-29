@@ -6,6 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 
 //TODO: Настоятельно рекомендую использовать MapStruct
 //TODO: Лучше тут поставь @Component.Создание бина через метод конфига - вариант, но не очевидно
+// TODO: 7/21/22 Не вижу исправлений.
 public class AirTicketToAirTicketDtoConverter implements Converter<AirTicket, AirTicketDto> {
 
     @Override

@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private String password;
 
     // TODO: 7/14/22 Про двустороннюю связь вопрос был задан не единожды.
+    // TODO: 7/21/22 Нужна ли тут двусторонняя связь (x2)?
     @OneToMany(mappedBy = "user")
     @EqualsAndHashCode.Exclude
     private List<Order> orders = new ArrayList<>();

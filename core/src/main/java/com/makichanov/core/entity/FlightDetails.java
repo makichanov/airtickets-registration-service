@@ -12,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "flights")
+// TODO: 7/26/22 гляди на подсказки ide. С точки зрения требований не будет ли @Data избыточно?
 @Data
 @NoArgsConstructor
 public class FlightDetails {
@@ -49,6 +50,7 @@ public class FlightDetails {
     @EqualsAndHashCode.Exclude
     private FlightAddress flightTo;
 
+    // TODO: 7/29/22 Бизнес-логика в доменном объекте
     public void incrementPlacesSold() {
         placesSold++;
     }

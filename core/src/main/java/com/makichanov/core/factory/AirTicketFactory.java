@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AirTicketFactory {
 
+    // TODO: 7/26/22 Неуместное использование паттерна Фабрика
     public AirTicket createAirTicket(FlightDetails flightDetails) {
         int place = flightDetails.getPlacesSold();
         AirTicket airTicket = new AirTicket();

@@ -19,6 +19,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "name")
     private String name;
     // TODO: 7/14/22 Нужна тут двусторонняя связь?
+    // TODO: 7/21/22 Нужна ли тут двусторонняя связь (x2)?
     @OneToMany(mappedBy = "role")
     @EqualsAndHashCode.Exclude
     private List<User> users;

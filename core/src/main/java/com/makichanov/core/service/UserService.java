@@ -25,6 +25,7 @@ public class UserService {
         return findById(id);
     }
 
+    // TODO: 7/28/22 А если передавать Pageable?
     public List<User> findAll(@Positive Long pageNum, @Positive Long pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
         return userRepository.findAll(pageRequest)
@@ -32,6 +33,8 @@ public class UserService {
     }
 
     public User create(User user) {
+        // TODO: 7/28/22 Лучше работать с id всегда, если есть возможность
+        // TODO: 7/28/22 И зачем вообще репа для ролей?
         Role role = roleRepository.findByName(DEFAULT_USER_ROLE);
 
         user.setRole(role);

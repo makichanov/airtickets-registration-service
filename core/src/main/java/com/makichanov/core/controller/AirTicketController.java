@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+// TODO: 7/26/22 надо ли в @RequestMapping обязательно указывать produces?
 @RestController
 @RequestMapping(value = "/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Airtickets controller", description = "CRUD airtickets operations")

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Positive;
 
+// TODO: 7/28/22 Зачем этот класс?
 @Data
 @Schema(description = "Route order data")
 public class Route {
