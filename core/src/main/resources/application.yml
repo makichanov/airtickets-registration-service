@@ -1,6 +1,14 @@
 spring:
+  application:
+    name: ars-core
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ars_db
     username: ars_user
     password: ars_user_pass
     driver-class-name: org.postgresql.Driver
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
