@@ -1,11 +1,10 @@
 package com.makichanov.core.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
@@ -18,11 +17,6 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "name")
     private String name;
-    // TODO: 7/14/22 Нужна тут двусторонняя связь?
-    // TODO: 7/21/22 Нужна ли тут двусторонняя связь (x2)?
-    @OneToMany(mappedBy = "role")
-    @EqualsAndHashCode.Exclude
-    private List<User> users;
 
     @Override
     public String getAuthority() {

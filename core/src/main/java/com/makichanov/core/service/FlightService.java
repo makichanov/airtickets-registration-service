@@ -1,9 +1,8 @@
 package com.makichanov.core.service;
 
 import com.makichanov.core.entity.FlightAddress;
-import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.entity.FlightDetails;
-import com.makichanov.core.repository.FlightAddressRepository;
+import com.makichanov.core.exception.EntityNotFoundException;
 import com.makichanov.core.repository.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -54,16 +52,11 @@ public class FlightService {
         flightDetails.setDepartureTime(updated.getDepartureTime());
         flightDetails.setArrivalTime(updated.getArrivalTime());
         flightDetails.setBasePrice(updated.getBasePrice());
-        flightDetails.setMaxPlaces(updated.getMaxPlaces());
-        flightDetails.setPlacesSold(updated.getPlacesSold());
+        flightDetails.setPlaces(updated.getPlaces());
         flightDetails.setFlightFrom(flightAddressFrom);
         flightDetails.setFlightTo(flightAddressTo);
 
         return flightDetails;
-    }
-
-    public void updateSoldPlaces(Long id, Integer newPlacesNumber) {
-        flightsRepository.updateSoldPlaces(id, newPlacesNumber);
     }
 
     public FlightDetails delete(Long id) {

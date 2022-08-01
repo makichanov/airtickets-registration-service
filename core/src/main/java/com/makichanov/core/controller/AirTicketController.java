@@ -20,6 +20,8 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 // TODO: 7/26/22 надо ли в @RequestMapping обязательно указывать produces?
+// Считаю это хорошим тоном, т.к. указывает пользователю в каком формате данные возвращает апи
+// С другой стороны, рест апи как таковое подразумевает json ответы - с этой точки зрения можно не указывать produces
 @RestController
 @RequestMapping(value = "/tickets", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Airtickets controller", description = "CRUD airtickets operations")
@@ -35,7 +37,7 @@ public class AirTicketController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
         List<AirTicket> airTickets = airTicketService.findAll(pageNum, pageSize);
 
-        return new ResponseEntity<>(ConversionUtils.toAirTicketDtoList(airTickets), HttpStatus.OK);
+        return ResponseEntity.ok(ConversionUtils.toAirTicketDtoList(airTickets));
     }
 
     @GetMapping("/{id}")
@@ -45,11 +47,10 @@ public class AirTicketController {
     public ResponseEntity<AirTicketDto> read(@PathVariable Long id) {
         AirTicket airTicket = airTicketService.find(id);
 
-        return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(airTicket, AirTicketDto.class));
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create airticket", description = """
             Creates ticket in database, returns created ticket
             """)
@@ -70,17 +71,16 @@ public class AirTicketController {
         AirTicket airTicket = conversionService.convert(dto, AirTicket.class);
         AirTicket updated = airTicketService.update(id, airTicket);
 
-        return new ResponseEntity<>(conversionService.convert(updated, AirTicketDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(updated, AirTicketDto.class));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Delete airticket by id", description = """
             Deletes ticket from database, returns deleted ticket
             """)
     public ResponseEntity<AirTicketDto> delete(@PathVariable Long id) {
         AirTicket airTicket = airTicketService.delete(id);
 
-        return new ResponseEntity<>(conversionService.convert(airTicket, AirTicketDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(airTicket, AirTicketDto.class));
     }
 }

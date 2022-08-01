@@ -23,13 +23,9 @@ public class UpdateFlightDetailsRequest {
     @Schema(description = "New flight base price in dollars")
     private Double basePrice;
 
-    @Positive(message = "Max places number should be positive")
-    @Schema(description = "new maximal number of places in plate")
-    private Integer maxPlaces;
-
     @Positive(message = "Sold places number should be positive")
-    @Schema(description = "New number of sold places")
-    private Integer placesSold;
+    @Schema(description = "New number of places left")
+    private Integer places;
 
     @Positive(message = "Id value is always positive")
     @Schema(description = "New id of departure flight address")

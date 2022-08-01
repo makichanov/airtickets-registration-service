@@ -7,8 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "air_tickets")
-// TODO: 7/26/22 гляди на подсказки ide. С точки зрения требований не будет ли @Data избыточно?
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class AirTicket {
     @Id
@@ -24,10 +24,8 @@ public class AirTicket {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "flight_id")
-    @EqualsAndHashCode.Exclude
     private FlightDetails flightDetails;
 
     @ManyToMany(mappedBy = "airTickets")
-    @EqualsAndHashCode.Exclude
     private List<Order> orders;
 }

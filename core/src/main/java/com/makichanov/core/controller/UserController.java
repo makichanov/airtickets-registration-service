@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +33,7 @@ public class UserController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
         List<User> users = userService.findAll(pageNum, pageSize);
 
-        return new ResponseEntity<>(ConversionUtils.toUserDtoList(users), HttpStatus.OK);
+        return ResponseEntity.ok(ConversionUtils.toUserDtoList(users));
     }
 
     @GetMapping("/{id}")
@@ -42,7 +41,7 @@ public class UserController {
     public ResponseEntity<UserDto> read(@PathVariable Long id) {
         User user = userService.find(id);
 
-        return new ResponseEntity<>(conversionService.convert(user, UserDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(user, UserDto.class));
     }
 
     @PatchMapping("/{id}")
@@ -52,7 +51,7 @@ public class UserController {
 
         User updated = userService.update(id, user);
 
-        return new ResponseEntity<>(conversionService.convert(updated, UserDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(updated, UserDto.class));
     }
 
     @DeleteMapping("/{id}")
@@ -60,7 +59,7 @@ public class UserController {
     public ResponseEntity<UserDto> delete(@PathVariable Long id) {
         User user = userService.delete(id);
 
-        return new ResponseEntity<>(conversionService.convert(user, UserDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(user, UserDto.class));
     }
 
 }
