@@ -25,10 +25,9 @@ public class OrderPlacesValidator implements Validator {
 
         for (Route r : dto.getRoutes()) {
             FlightDetails flightDetails = flightService.findByRoute(r.getFlightFromId(), r.getFlightToId());
-            long placesToBeSold = flightDetails.getPlacesSold() + r.getTicketsCount();
 
-            if (placesToBeSold > flightDetails.getMaxPlaces()) {
-                errors.rejectValue("maxPlaces" + flightDetails.getId(), "excess");
+            if (flightDetails.getPlaces() < r.getTicketsCount()) {
+                errors.rejectValue("routes", "excess");
             }
         }
     }

@@ -1,14 +1,13 @@
 package com.makichanov.core.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -26,13 +25,7 @@ public class User implements UserDetails {
     @Column(name = "password_hash")
     private String password;
 
-    // TODO: 7/14/22 Про двустороннюю связь вопрос был задан не единожды.
-    // TODO: 7/21/22 Нужна ли тут двусторонняя связь (x2)?
-    @OneToMany(mappedBy = "user")
-    @EqualsAndHashCode.Exclude
-    private List<Order> orders = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "role", nullable = false)
     private Role role;
 

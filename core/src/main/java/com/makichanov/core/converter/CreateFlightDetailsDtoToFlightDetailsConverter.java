@@ -13,7 +13,7 @@ public class CreateFlightDetailsDtoToFlightDetailsConverter
         flightDetails.setDepartureTime(source.getDepartureTime());
         flightDetails.setArrivalTime(source.getArrivalTime());
         flightDetails.setBasePrice((long) (source.getBasePrice() * 100));
-        flightDetails.setMaxPlaces(source.getMaxPlaces());
+        flightDetails.setPlaces(source.getPlaces());
         return flightDetails;
     }
 

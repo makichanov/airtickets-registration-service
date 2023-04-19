@@ -3,7 +3,6 @@ package com.makichanov.core.service;
 import com.makichanov.core.entity.Role;
 import com.makichanov.core.entity.User;
 import com.makichanov.core.exception.EntityNotFoundException;
-import com.makichanov.core.repository.RoleRepository;
 import com.makichanov.core.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,16 +15,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private static final String DEFAULT_USER_ROLE = "ROLE_USER";
+    private static final int DEFAULT_USER_ROLE_ID = 1;
+    private static final String DEFAULT_USER_ROLE_NAME = "ROLE_USER";
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     public User find(Long id) {
         return findById(id);
     }
 
-    // TODO: 7/28/22 А если передавать Pageable?
     public List<User> findAll(@Positive Long pageNum, @Positive Long pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNum.intValue(), pageSize.intValue());
         return userRepository.findAll(pageRequest)
@@ -33,11 +31,11 @@ public class UserService {
     }
 
     public User create(User user) {
-        // TODO: 7/28/22 Лучше работать с id всегда, если есть возможность
-        // TODO: 7/28/22 И зачем вообще репа для ролей?
-        Role role = roleRepository.findByName(DEFAULT_USER_ROLE);
-
+        Role role = new Role();
+        role.setId(DEFAULT_USER_ROLE_ID);
+        role.setName(DEFAULT_USER_ROLE_NAME);
         user.setRole(role);
+
         user.setPassword(
                 passwordEncoder.encode(
                         user.getPassword()));

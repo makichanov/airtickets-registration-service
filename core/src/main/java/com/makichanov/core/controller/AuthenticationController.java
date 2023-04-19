@@ -32,9 +32,7 @@ public class AuthenticationController {
     public ResponseEntity<String> login(@RequestBody @Valid AuthenticateRequest authenticatingDto) {
         String token = authenticationService.authenticate(authenticatingDto.getUsername(), authenticatingDto.getPassword());
 
-        return new ResponseEntity<>(token, HttpStatus.OK);
-
-        // TODO: 7/27/22 я бы так сделал:  return ResponseEntity.ok(T body) и статус передавать не придется.
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/signup")

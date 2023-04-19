@@ -1,4 +1,5 @@
 // TODO: 7/26/22 Разбиение по пакетам. Почему хэндлер лежит в контроллерах? Вынести в отдельный пакет.
+// Хендлер логически относится к контроллерам, поэтому я объединил их
 package com.makichanov.core.controller.handler;
 
 import org.springframework.http.HttpStatus;

@@ -6,6 +6,8 @@ import lombok.Data;
 import javax.validation.constraints.Positive;
 
 // TODO: 7/28/22 Зачем этот класс?
+// Для удобного и логичного оформления заказа. Пользователь должен указать место отправки,
+// назначения и количество билетов
 @Data
 @Schema(description = "Route order data")
 public class Route {

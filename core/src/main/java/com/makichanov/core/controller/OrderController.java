@@ -29,7 +29,7 @@ public class OrderController {
     private final ConversionService conversionService;
     private final OrderPlacesValidator orderPlacesValidator;
 
-    @InitBinder("createOrderRequestDto")
+    @InitBinder("createOrderRequest")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(orderPlacesValidator);
     }
@@ -45,7 +45,7 @@ public class OrderController {
                 ? orderService.findAll(pageNum, pageSize)
                 : orderService.findByUserId(userId);
 
-        return new ResponseEntity<>(ConversionUtils.toOrdersDtoList(orders), HttpStatus.OK);
+        return ResponseEntity.ok(ConversionUtils.toOrdersDtoList(orders));
     }
 
     @GetMapping("/{id}")
@@ -53,7 +53,7 @@ public class OrderController {
     public ResponseEntity<OrderDto> read(@PathVariable Long id) {
         Order order = orderService.find(id);
 
-        return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(order, OrderDto.class));
     }
 
     @PostMapping
@@ -69,6 +69,6 @@ public class OrderController {
     public ResponseEntity<OrderDto> delete(@PathVariable Long id) {
         Order order = orderService.delete(id);
 
-        return new ResponseEntity<>(conversionService.convert(order, OrderDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(order, OrderDto.class));
     }
 }

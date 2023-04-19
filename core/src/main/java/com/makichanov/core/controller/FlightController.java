@@ -34,7 +34,7 @@ public class FlightController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
         List<FlightDetails> flightDetails = flightService.findAll(pageNum, pageSize);
 
-        return new ResponseEntity<>(ConversionUtils.toFlightDetailsDtoList(flightDetails), HttpStatus.OK);
+        return ResponseEntity.ok(ConversionUtils.toFlightDetailsDtoList(flightDetails));
     }
 
     @GetMapping("/{id}")
@@ -42,7 +42,7 @@ public class FlightController {
     public ResponseEntity<FlightDetailsDto> read(@PathVariable Long id) {
         FlightDetails flightDetails = flightService.find(id);
 
-        return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(flightDetails, FlightDetailsDto.class));
     }
 
     @PostMapping
@@ -63,7 +63,7 @@ public class FlightController {
 
         FlightDetails updated = flightService.update(id, flightDetails, dto.getFlightFromId(), dto.getFlightToId());
 
-        return new ResponseEntity<>(conversionService.convert(updated, FlightDetailsDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(updated, FlightDetailsDto.class));
     }
 
     @DeleteMapping("/{id}")
@@ -71,6 +71,6 @@ public class FlightController {
     public ResponseEntity<FlightDetailsDto> delete(@PathVariable Long id) {
         FlightDetails flightDetails = flightService.delete(id);
 
-        return new ResponseEntity<>(conversionService.convert(flightDetails, FlightDetailsDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(flightDetails, FlightDetailsDto.class));
     }
 }

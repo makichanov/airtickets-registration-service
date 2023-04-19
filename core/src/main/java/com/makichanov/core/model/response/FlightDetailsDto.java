@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,12 +24,8 @@ public class FlightDetailsDto {
     @Schema(description = "Flight base price")
     private Double basePrice;
 
-    // TODO: 7/26/22 хардкодишь, можно просто одну переменную places создать, потом ее инкрементить
-    @Schema(description = "Flight max places")
-    private Integer maxPlaces;
-
-    @Schema(description = "Sold places number in flight")
-    private Integer placesSold;
+    @Schema(description = "Flight places left")
+    private Integer places;
 
     @Schema(description = "Departure flight address")
     @EqualsAndHashCode.Exclude

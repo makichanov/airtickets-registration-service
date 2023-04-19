@@ -35,7 +35,7 @@ public class FlightAddressController {
             @RequestParam(name = "pageSize", required = false, defaultValue = "10") @Positive Long pageSize) {
         List<FlightAddress> flightAddresses = flightAddressService.findAll(pageNum, pageSize);
 
-        return new ResponseEntity<>(ConversionUtils.toFlightAddressDtoList(flightAddresses), HttpStatus.OK);
+        return ResponseEntity.ok(ConversionUtils.toFlightAddressDtoList(flightAddresses));
     }
 
     @GetMapping("/{id}")
@@ -44,7 +44,7 @@ public class FlightAddressController {
     public ResponseEntity<FlightAddressDto> read(@PathVariable Long id) {
         FlightAddress flightAddress = flightAddressService.find(id);
 
-        return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(flightAddress, FlightAddressDto.class));
     }
 
     @PostMapping
@@ -55,7 +55,6 @@ public class FlightAddressController {
         FlightAddress created = flightAddressService.create(flightAddress);
 
         return new ResponseEntity<>(conversionService.convert(created, FlightAddressDto.class), HttpStatus.CREATED);
-
     }
 
     @PatchMapping("/{id}")
@@ -66,7 +65,7 @@ public class FlightAddressController {
 
         FlightAddress updated = flightAddressService.update(id, flightAddress);
 
-        return new ResponseEntity<>(conversionService.convert(updated, FlightAddressDto.class), HttpStatus.OK);
+        return ResponseEntity.ok(conversionService.convert(updated, FlightAddressDto.class));
     }
 
     @DeleteMapping("/{id}")
@@ -74,7 +73,6 @@ public class FlightAddressController {
     public ResponseEntity<FlightAddressDto> delete(@PathVariable Long id) {
         FlightAddress flightAddress = flightAddressService.delete(id);
 
-        return new ResponseEntity<>(conversionService.convert(flightAddress, FlightAddressDto.class), HttpStatus.OK);
-
+        return ResponseEntity.ok(conversionService.convert(flightAddress, FlightAddressDto.class));
     }
 }

@@ -32,6 +32,6 @@ public class CreateFlightDetailsRequest {
 
     @Positive(message = "Max places number should be positive")
     @Schema(description = "Maximal number of places in plate, determines maximal amount of tickets might be sold")
-    private Integer maxPlaces;
+    private Integer places;
 
 }
