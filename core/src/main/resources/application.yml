@@ -4,3 +4,6 @@ spring:
     username: ars_user
     password: ars_user_pass
     driver-class-name: org.postgresql.Driver
+
+server:
+  port: 8081

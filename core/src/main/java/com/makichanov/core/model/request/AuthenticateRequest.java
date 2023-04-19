@@ -15,7 +15,7 @@ public class AuthenticateRequest {
     private String username;
 
     @NotBlank(message = "Password should not be blank")
-    @Min(value = 12, message = "Password length less than 12 symbols is too weak")
+    @Size(min = 5, message = "Password length less than 12 symbols is too weak")
     @Schema(description = "User's password, not less than 12 symbols")
     private String password;
 

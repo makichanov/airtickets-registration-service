@@ -1,5 +1,6 @@
 package com.makichanov.core.configuration;
 
+import com.makichanov.core.controller.filter.AuditFilter;
 import com.makichanov.core.controller.filter.JwtAccessFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,11 +9,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtAccessFilter jwtAccessFilter;
+    private final AuditFilter auditFilter;
 
     //TODO: вынести строки в константы
     // TODO: 7/26/22 Вынести строки в константы
@@ -43,12 +43,18 @@ public class SecurityConfig {
                     .antMatchers(HttpMethod.GET, "/flights", "/flights/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.POST, "/flights").hasRole("ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                    .antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll()
                 .anyRequest()
                     .authenticated()
                 .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .addFilterBefore(jwtAccessFilter, UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(jwtAccessFilter, UsernamePasswordAuthenticationFilter.class)
+                    .addFilterAfter(auditFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
