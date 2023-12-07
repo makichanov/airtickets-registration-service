@@ -1,7 +1,6 @@
 package com.makichanov.core.configuration;
 
-import com.makichanov.core.controller.filter.AuditFilter;
-import com.makichanov.core.controller.filter.JwtAccessFilter;
+import com.makichanov.core.filter.AuditFilter;
 import com.makichanov.core.filter.JwtAccessFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -27,22 +31,22 @@ public class SecurityConfig {
     private final JwtAccessFilter jwtAccessFilter;
     private final AuditFilter auditFilter;
 
-    //TODO: вынести строки в константы
-    // TODO: 7/26/22 Вынести строки в константы
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
                     .disable()
+                .cors()
+                .and()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                     .antMatchers(HttpMethod.GET, "/tickets", "/tickets/**").permitAll()
-                    .antMatchers(HttpMethod.GET, "/destinations").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/flights", "/flights/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/destinations").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.POST, "/destinations").hasAnyRole("ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/destinations").hasAnyRole("ADMIN")
                     .antMatchers(HttpMethod.POST, "/tickets").hasRole("ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/tickets/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.GET, "/flights", "/flights/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.POST, "/flights").hasRole("ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
                     .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
@@ -77,5 +81,15 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
