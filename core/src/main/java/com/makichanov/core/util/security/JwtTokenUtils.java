@@ -39,7 +39,9 @@ public final class JwtTokenUtils {
 
     public static boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+            Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJws(token);
             return true;
         } catch (SignatureException e) {
             log.error("Attempting to parse invalid JWT", e);

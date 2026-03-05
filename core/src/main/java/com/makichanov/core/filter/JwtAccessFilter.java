@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component

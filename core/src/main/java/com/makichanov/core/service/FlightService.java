@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.Positive;
 import java.util.List;
 
 @Service

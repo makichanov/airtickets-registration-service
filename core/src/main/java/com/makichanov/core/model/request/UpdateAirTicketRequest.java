@@ -3,7 +3,7 @@ package com.makichanov.core.model.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.Positive;
 
 @Data
 @Schema(description = "Update air ticket request data")

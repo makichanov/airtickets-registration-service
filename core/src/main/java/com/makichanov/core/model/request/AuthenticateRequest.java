@@ -3,7 +3,7 @@ package com.makichanov.core.model.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Data
 @Schema(description = "Authentication request data for creating user and authenticating in system")
