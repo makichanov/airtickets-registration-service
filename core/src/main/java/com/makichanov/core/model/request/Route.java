@@ -3,7 +3,7 @@ package com.makichanov.core.model.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.Positive;
 
 // TODO: 7/28/22 Зачем этот класс?
 // Для удобного и логичного оформления заказа. Пользователь должен указать место отправки,

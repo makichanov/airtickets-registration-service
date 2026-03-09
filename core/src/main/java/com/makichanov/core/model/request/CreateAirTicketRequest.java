@@ -4,8 +4,8 @@ import com.makichanov.core.model.response.FlightAddressDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Positive;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 @Data
