@@ -1,12 +1,12 @@
 package com.makichanov.core.configuration;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.command.ActiveMQQueue;
+import jakarta.jms.ConnectionFactory;
+import jakarta.jms.JMSException;
+import jakarta.jms.Queue;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.jms.ConnectionFactory;
-import javax.jms.Queue;
 
 @Configuration
 public class JmsConfig {
@@ -17,10 +17,9 @@ public class JmsConfig {
     }
 
     @Bean
-    public ConnectionFactory connectionFactory(){
+    public ConnectionFactory connectionFactory() throws JMSException {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
         factory.setBrokerURL("tcp://localhost:61616");
-
         return factory;
     }
 }

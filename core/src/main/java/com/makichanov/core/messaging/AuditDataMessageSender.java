@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.jms.Queue;
+import jakarta.jms.Queue;
 
 @Component
 @RequiredArgsConstructor

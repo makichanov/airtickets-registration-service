@@ -30,8 +30,6 @@ public class SecurityConfig {
     private final JwtAccessFilter jwtAccessFilter;
     private final AuditFilter auditFilter;
 
-    //TODO: вынести строки в константы
-    // TODO: 7/26/22 Вынести строки в константы
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
