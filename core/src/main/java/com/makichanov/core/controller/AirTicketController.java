@@ -1,5 +1,6 @@
 package com.makichanov.core.controller;
 
+import com.makichanov.ars.data.message.AuditMessage;
 import com.makichanov.core.model.request.UpdateAirTicketRequest;
 import com.makichanov.core.model.response.AirTicketDto;
 import com.makichanov.core.model.request.CreateAirTicketRequest;

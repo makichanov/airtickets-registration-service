@@ -3,15 +3,10 @@ spring:
     name: ars-core
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/ars_db
-    username: ars_user
-    password: ars_user_pass
     driver-class-name: org.postgresql.Driver
-
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
+    url: jdbc:postgresql://${DB_HOSTNAME}:${DB_PORT}/${DB_ARS_DATABASE}
+    username: ${DB_ARS_USER}
+    password: ${DB_ARS_PASSWORD}
 
 server:
   port: 8081

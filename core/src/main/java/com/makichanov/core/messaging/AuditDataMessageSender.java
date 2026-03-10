@@ -1,12 +1,11 @@
 package com.makichanov.core.messaging;
 
-import com.makichanov.core.model.request.AuditData;
+import com.makichanov.ars.data.message.AuditMessage;
+import jakarta.jms.Queue;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
-
-import jakarta.jms.Queue;
 
 @Component
 @RequiredArgsConstructor
@@ -15,8 +14,8 @@ public class AuditDataMessageSender {
     private final JmsTemplate jmsTemplate;
     private final Queue queue;
 
-    public void sendAuditData(AuditData auditData) {
-        log.info("Audit data {} is sending to destination point {}", auditData, queue);
-        jmsTemplate.convertAndSend(queue, auditData);
+    public void sendAuditData(AuditMessage auditMessage) {
+        log.info("Audit data {} is sending to destination point {}", auditMessage, queue);
+        jmsTemplate.convertAndSend(queue, auditMessage);
     }
 }

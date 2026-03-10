@@ -1,5 +1,6 @@
 package com.makichanov.audit.consumer;
 
+import com.makichanov.ars.data.message.AuditMessage;
 import com.makichanov.audit.model.AuditData;
 import com.makichanov.audit.service.AuditService;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class AuditDataConsumer {
     private final AuditService auditService;
 
     @JmsListener(destination = "ars-queue")
-    public void listener(Message<AuditData> message) {
-        AuditData auditData = message.getPayload();
+    public void listener(Message<AuditMessage> message) {
+        AuditMessage auditData = message.getPayload();
         AuditData saved = auditService.create(auditData);
         log.info("Saved audit data {}", saved);
     }

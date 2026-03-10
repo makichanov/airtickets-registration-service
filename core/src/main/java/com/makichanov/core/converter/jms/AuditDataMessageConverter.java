@@ -2,7 +2,7 @@ package com.makichanov.core.converter.jms;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.makichanov.core.model.request.AuditData;
+import com.makichanov.ars.data.message.AuditMessage;
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;
 import jakarta.jms.Session;
@@ -26,19 +26,19 @@ public class AuditDataMessageConverter implements MessageConverter {
     @Override
     @NonNull
     public Message toMessage(@NonNull Object object, @NonNull Session session) throws JMSException, MessageConversionException {
-        if (!(object instanceof AuditData auditData)) {
+        if (!(object instanceof AuditMessage auditMessage)) {
             throw new MessageConversionException("Cannot convert [" + object + "] to AuditData");
         }
 
-        String jsonAuditData;
+        String jsonAuditMessage;
         try {
-            jsonAuditData = objectMapper.writeValueAsString(auditData);
+            jsonAuditMessage = objectMapper.writeValueAsString(auditMessage);
         } catch (JsonProcessingException e) {
             throw new MessageConversionException("Error converting AuditData to json", e);
         }
 
         TextMessage message = session.createTextMessage();
-        message.setText(jsonAuditData);
+        message.setText(jsonAuditMessage);
 
         return message;
     }
@@ -56,9 +56,9 @@ public class AuditDataMessageConverter implements MessageConverter {
         }
 
         try {
-            return objectMapper.readValue(jsonAuditData, AuditData.class);
+            return objectMapper.readValue(jsonAuditData, AuditMessage.class);
         } catch (JsonProcessingException e) {
-            throw new MessageConversionException("Error converting json to AuditData object", e);
+            throw new MessageConversionException("Error converting json to AuditMessage object", e);
         }
     }
 }

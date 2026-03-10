@@ -20,6 +20,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 ext {
@@ -29,6 +30,9 @@ ext {
 }
 
 dependencies {
+    // Local dependencies
+    implementation 'com.makichanov:ars-data:0.0.1-SNAPSHOT'
+
     // Spring Boot starters – versions managed by Spring Boot BOM
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -44,7 +48,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
 
     // OpenAPI / Swagger
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'io.swagger.core.v3:swagger-annotations:2.2.22'
 
     // Lombok

@@ -1,5 +1,6 @@
 package com.makichanov.audit.service;
 
+import com.makichanov.ars.data.message.AuditMessage;
 import com.makichanov.audit.model.AuditData;
 import com.makichanov.audit.repository.AuditDataRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,13 @@ public class AuditService {
                 .getContent();
     }
 
-    public AuditData create(AuditData auditData) {
+    public AuditData create(AuditMessage auditMessage) {
+        AuditData auditData = AuditData.builder()
+            .id(auditMessage.getId())
+            .endpoint(auditMessage.getEndpoint())
+            .date(auditMessage.getDate())
+            .statusCode(auditMessage.getStatusCode())
+            .build();
         return repository.save(auditData);
     }
 }

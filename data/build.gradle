@@ -1,0 +1,41 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'com.makichanov'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = 'com.makichanov'
+            artifactId = 'ars-data'
+            version = '0.0.1-SNAPSHOT'
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}

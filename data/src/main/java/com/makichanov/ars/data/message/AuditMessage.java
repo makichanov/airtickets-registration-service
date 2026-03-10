@@ -1,4 +1,4 @@
-package com.makichanov.core.model.request;
+package com.makichanov.ars.data.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuditData {
+public class AuditMessage {
     private String id;
 
     private String endpoint;
