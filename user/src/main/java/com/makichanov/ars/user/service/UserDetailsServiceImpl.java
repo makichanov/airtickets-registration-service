@@ -1,6 +1,6 @@
-package com.makichanov.core.service;
+package com.makichanov.ars.user.service;
 
-import com.makichanov.core.repository.UserRepository;
+import com.makichanov.ars.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
