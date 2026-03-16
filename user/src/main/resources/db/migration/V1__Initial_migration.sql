@@ -4,7 +4,9 @@ CREATE TABLE users
 (
     id            BIGINT PRIMARY KEY DEFAULT nextval('user_id_seq'),
     username      VARCHAR(50) NOT NULL,
-    password_hash VARCHAR(60) NOT NULL
+    password_hash VARCHAR(60) NOT NULL,
+
+    UNIQUE(username)
 );
 
 CREATE SEQUENCE role_id_seq;

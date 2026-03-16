@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -31,6 +32,7 @@ public class UserService {
                 .getContent();
     }
 
+    @Transactional
     public User create(User user) {
         Role role = new Role();
         role.setId(DEFAULT_USER_ROLE_ID);

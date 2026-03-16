@@ -19,7 +19,6 @@ public class JwtAccessFilter extends GenericFilter {
     private final UserDetailsService userDetailsService;
 
     @Override
-    @Transactional
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = JwtTokenUtils.extractJwtFromHeader(((HttpServletRequest)request).getHeader("Authorization"));
 
